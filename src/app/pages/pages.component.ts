@@ -5,6 +5,8 @@ import { map, shareReplay } from 'rxjs/operators';
 import {MatDialog} from '@angular/material/dialog';
 import { UserInformationComponent } from "../pages/user-information/user-information.component";
 import { ChangePasswordComponent } from '../pages/change-password/change-password.component';
+import { GlobalsService } from '../services/Globals/globals.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
@@ -19,7 +21,7 @@ export class PagesComponent implements OnInit {
   );
 
 constructor(private breakpointObserver: BreakpointObserver,
-           public dialog: MatDialog ) {}
+           public dialog: MatDialog, private Global: GlobalsService, private route: Router ) {}
            AccountDetails() {
             const dialogRef = this.dialog.open(UserInformationComponent);
         
@@ -35,7 +37,12 @@ constructor(private breakpointObserver: BreakpointObserver,
             });
           }
         
-  ngOnInit(): void {
-  }
-
+          ngOnInit(): void {
+          }
+          logout(){
+            this.Global.logout()
+            this.route.navigate([''])
+            
+          }
+      
 }

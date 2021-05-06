@@ -14,6 +14,7 @@ export class ChangePasswordComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("hola")
   }
   getErrorMessage() {
     if (!this.password1.value === this.password.value) {

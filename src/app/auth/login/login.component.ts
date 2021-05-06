@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiRegisterService } from '../../services/api-register-service.service';
+import { ApiRegisterService } from '../../services/api-register/api-register-service.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { UsersComponent } from 'src/app/pages/users/users.component';
+import { GlobalsService } from 'src/app/services/Globals/globals.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,12 +11,13 @@ import { UsersComponent } from 'src/app/pages/users/users.component';
 export class LoginComponent implements OnInit {
   public user_name : null;
   public password: null;
-  hide = true;
-  constructor(private route: Router, private apiRegister: ApiRegisterService, private _snackBar: MatSnackBar ) { }
   durationInSeconds = 5;
-
-  ngOnInit(): void {
-  }
+  hide = true;
+  constructor(private route: Router,
+               private apiRegister: ApiRegisterService,
+                private _snackBar: MatSnackBar,
+                private _Globals: GlobalsService ) { }
+  ngOnInit(): void { }
   login() {
     //this.confirm.set_phone(this.phone);
     let data = {
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit {
       password:   this.password,
 /*       app_token: this.messagingService.token
  */    };
-    this.apiRegister.login(this, data, this.ThenSendCode, this.errorHanndler);
+    this.apiRegister.login(this, data, this.LoginSuccess, this.loginError);
   
   }
   openSnackBar(message: string, action: string, ) {
@@ -33,25 +34,21 @@ export class LoginComponent implements OnInit {
   }
   
 
-  ThenSendCode(_this, data) {
-    console.log(data.person.name);
-    _this.globals.name = data.person.name;
-    _this.globals.id = data.person.id;
-    _this.globals.phone = data.person.phone;
-    _this.globals.email = data.person.email;
-    _this.globals.documento = data.person.number_document;
-    _this.globals.tipo_documento = data.person.doc_type;
-    _this.globals.ciudad = data.person.city;
-    _this.globals.cod_referido = data.person.code_refer;
-    _this.globals.photo = data.person.photo;
-  
-    _this.globals.setToken(data.access);
-    _this.router.navigate(['/Pages'])
+  LoginSuccess(_this, data ) {
+    console.log(data.user.first_name);
+      _this._Globals.name = data.user.first_name;
+      _this._Globals.last_Name = data.user.last_name;
+      _this._Globals.id = data.user.admin_id;
+      _this._Globals.email = data.user.email;
+      _this._Globals.photo = data.user.photo;
+    
+    _this._Globals.setToken(data.access);
+    _this.route.navigate(['/Pages'])
   }
   
-  errorHanndler(_this, data) {
-    console.log("error " + data);
-    _this.openSnackBar("Error", "Usuario o contraseña incorrectos");
+  loginError(_this, data) {
+    //console.log("error " + data.error.errors[0]);
+    _this.openSnackBar("Error", data.error.errors[0]);
   }
   
 }
