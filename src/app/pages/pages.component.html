@@ -1,0 +1,47 @@
+<mat-toolbar class="toolbar">
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
+  <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+</button>
+    <a class="navbar-brand " style="margin-left: 15px;" href="#">
+        <img src="../../../assets/login-logo.png" alt="" width="138px" height="30px">
+    </a>
+    <ul class="nav">
+        <li class="nav-item">
+            <button mat-icon-button class="example-icon mx-2" aria-label="Example icon-button with share icon">
+      <mat-icon style="color: #666666;">notifications_active</mat-icon>
+    </button>
+        </li>
+        <li class="nav-item ">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <span class="menuLabel">Ernesto Ruiz</span>
+          <mat-icon>expand_more</mat-icon> 
+       </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item class="text-center"> 
+                    <span (click)="AccountDetails()" >Editar perfil</span>
+                </button>
+                <button mat-menu-item class="text-center">
+                    <span (click)="ChangePassword()">Cambiar contraseña</span>
+                </button>
+                <button mat-menu-item class="text-center">
+                    <span>Cerrar sesión</span>
+                </button>
+            </mat-menu>
+        </li>
+        <li class="nav-item profile-img text-center  ">
+            <p class="text-img text-center">E</p>
+        </li>
+    </ul>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-container  " style="overflow-x: hidden !important;">
+    <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
+        <mat-nav-list>
+            <a class="nav-link text-start mb-1 " [routerLink]="['/Pages/users']" routerLinkActive="router-link-active" mat-list-item>Usuarios</a>
+            <a class="nav-link text-start" [routerLink]="['/Pages/transactions']" routerLinkActive="router-link-active" mat-list-item>Transacciones</a>
+            <a class="nav-link text-start" [routerLink]="['/Pages/campaign']" routerLinkActive="router-link-active" mat-list-item>Campañas</a>
+            <a class="nav-link text-start" [routerLink]="['/Pages/marketPlace']" routerLinkActive="router-link-active" mat-list-item>Marketplace</a>
+        </mat-nav-list>
+    </mat-sidenav>
+    <router-outlet class="p-1">
+    </router-outlet>
+</mat-sidenav-container>

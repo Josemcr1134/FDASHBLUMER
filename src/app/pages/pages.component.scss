@@ -1,0 +1,79 @@
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+    justify-content: space-between;
+}
+
+.mat-list-item {
+    font-family: 'Manrope' !important;
+    color: #000000;
+    font-weight: 400;
+    opacity: 100%;
+}
+
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 200px;
+}
+
+.sidenav .mat-toolbar {
+    background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.mat-drawer-side {
+    border: 0px;
+}
+
+.nav-link {
+    margin-left: 30px;
+}
+
+a {
+    font-size: 14px !important;
+    height: 35px !important;
+    width: 211px !important;
+}
+
+.mat-menu-panel {
+    width: 197px;
+    height: 126px;
+    color: #ffff;
+    border: 1px solid #DBDBDB;
+    opacity: 100%;
+}
+
+.mat-menu-item {
+    font-size: 12px;
+    font-weight: regular;
+    font-family: 'Manrope' !important;
+    color: #000000;
+}
+
+.menuLabel {
+    font-size: 14px;
+    font-weight: regular;
+    font-family: 'Manrope' !important;
+    color: #000000;
+}
+
+.profile-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #00DC52;
+    color: white;
+    margin: auto 70px;
+    padding: 2px;
+}
+
+.nav {
+    justify-content: center
+}

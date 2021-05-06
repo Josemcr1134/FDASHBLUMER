@@ -1,0 +1,142 @@
+.mat-form-field {
+    font-family: 'Manrope';
+}
+
+.form-group {
+    width: 300px;
+}
+
+.img-form {
+    max-width: 300px;
+    display: flex;
+    justify-self: center;
+    align-self: center;
+    margin-bottom: 1em;
+}
+
+.forgot-password {
+    color: #00884e;
+    font-size: 12px;
+}
+
+.btn {
+    background: linear-gradient(to right, #00CDA0, #00CABB, #00C2E6);
+    border: 0;
+    outline: hidden;
+    color: white;
+    border-radius: 24px;
+    height: 42px;
+}
+
+.label-form {
+    color: #000000;
+    font-size: 14px;
+    padding-left: 15px;
+    font-weight: 400;
+}
+
+input {
+    border: 1px #EBEBEB;
+    color: white;
+    border-radius: 24px !important;
+    opacity: 1;
+}
+
+input.mat-form-field {
+    border-radius: 24px !important;
+}
+
+.row {
+    margin-top: 21vh;
+}
+
+.outline {
+    border-radius: 24px;
+}
+
+label {
+    margin-bottom: 7px;
+}
+
+.img-form {
+    margin-bottom: 0px;
+}
+
+.mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+}
+
+.mat-form-field {
+    font-family: 'Manrope';
+}
+
+.form-group {
+    width: 300px;
+}
+
+.img-form {
+    max-width: 300px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    justify-self: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    margin-bottom: 1em;
+}
+
+.forgot-password {
+    color: #00884e;
+    font-size: 12px;
+}
+
+.btn {
+    background: -webkit-gradient(linear, left top, right top, from(#00CDA0), color-stop(#00CABB), to(#00C2E6));
+    background: linear-gradient(to right, #00CDA0, #00CABB, #00C2E6);
+    border: 0;
+    outline: hidden;
+    color: white;
+    border-radius: 24px;
+    height: 42px;
+}
+
+.label-form {
+    color: #000000;
+    font-size: 14px;
+    padding-left: 15px;
+    font-weight: 400;
+}
+
+input {
+    border: 1px #EBEBEB;
+    color: white;
+    border-radius: 24px !important;
+    opacity: 1;
+}
+
+input.mat-form-field {
+    border-radius: 24px !important;
+}
+
+.row {
+    margin-top: 21vh;
+}
+
+.outline {
+    border-radius: 24px;
+}
+
+label {
+    margin-bottom: 7px;
+}
+
+.img-form {
+    margin-bottom: 0px;
+}
+
+.mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+}
+
+
+/*# sourceMappingURL=login.component.css.map */

@@ -1,0 +1,125 @@
+<ng-container class="contenedor" ng-app='app'>
+    <div class="user-container">
+        <mat-icon class="align-middle mb-1">keyboard_arrow_left</mat-icon>
+        <span class="user-title mt-5">Editar informacion</span>
+    </div>
+
+    <div class="row">
+        <div class="col-9">
+
+            <mat-tab-group animationDuration="0ms">
+                <mat-tab label="Datos personales">
+                    <div class="row">
+                        <div class="col-6 first-row">
+                            <p>USERNAME</p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>@ernesto_ruiz</mat-label>
+                                <input type="text" matInput placeholder="@user">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-6 first-row">
+                            <div class="profile-img align-middle">
+                                <div class="text-img align-middle text-center">E</div>
+                            </div>
+                            <button mat-raised-button class="cancel-button">Cargar imagen</button>
+
+                        </div>
+                        <div class="col-6 second-row ">
+                            <p>NOMBRE</p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ernesto Carlos</mat-label>
+                                <input type="text" matInput placeholder="nombre">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-6 second-row">
+                            <p>APELLIDO </p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Ruiz Romero</mat-label>
+                                <input type="text" matInput placeholder="Apellido">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-6 third-row">
+                            <p> FECHA DE NACIMIENTO </p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>03 de marzo de 2021</mat-label>
+                                <input type="text" matInput placeholder="Fecha de nacimiento">
+                            </mat-form-field>
+                        </div>
+                        <div class="col-6 third-row">
+                            <p>SEXO</p>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Masculino</mat-label>
+                                <input type="text" [formControl]="myControl" placeholder="Genero" [matAutocomplete]="auto" matInput>
+                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                        {{option}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="col-6 third-row mb-1">
+                        <button mat-raised-button class="save-button">Guardar</button>
+                        <button mat-raised-button class="cancel-button">Cancelar</button>
+
+                    </div>
+                </mat-tab>
+                <mat-tab label="Contraseña">
+                    <p class="first-row">CAMBIAR CONTRASEÑA</p>
+                    <mat-form-field class="  password" appearance="outline">
+                        <mat-label>******** </mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password1">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide">
+                          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                          </button>
+                    </mat-form-field>
+                    <p>CONFIRMAR NUEVA CONTRASEÑA</p>
+                    <mat-form-field class="password" appearance="outline">
+                        <mat-label>*******</mat-label>
+                        <input type="password" matInput placeholder="Repite tu contraseña" [formControl]="password">
+                        <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                    <div class="col-6 third-row mb-1">
+                        <button mat-raised-button class="save-button">Guardar</button>
+                        <button mat-raised-button class="cancel-button">Cancelar</button>
+
+                    </div>
+                </mat-tab>
+                <mat-tab label="Billetera">
+                    <div class="balance-container">
+                        <div class="balance">
+                            <p class="balance-title">SALDO EN LA WALLET</p>
+                            <div class="balance-value"> {{cantidad}} CP </div>
+                        </div>
+                        <div class="addSubstract">
+                            <p class="addSubstract-title">AGREGAR O RESTAR SALDO</p>
+                            <div class="operations">
+                                <button mat-button class="substract">
+                                    <mat-icon (click)="restar()">remove_circle_outline</mat-icon>
+                                </button>
+                                <div class="count-value"> {{cantidad}} </div>
+                                <button mat-button class="add"> 
+                                    <mat-icon  (click)="sumar()">add_circle_outline</mat-icon>
+                                </button>
+                            </div>
+                            <button mat-button class="button">
+                                Modificar saldo
+                            </button>
+                        </div>
+                    </div>
+
+
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        <div class="col-2">
+            <mat-form-field appearance="outline" class="field-input-user">
+                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar usuarios" class="field-input-user" #input>
+                <mat-icon matPrefix style="color: #666666;" class="input">search</mat-icon>
+            </mat-form-field>
+        </div>
+    </div>
+
+
+
+</ng-container>

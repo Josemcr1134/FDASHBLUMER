@@ -1,0 +1,103 @@
+.user-title {
+    font-size: 18px;
+    font-family: 'Manrope' !important;
+    font-weight: bold;
+    color: #000000;
+}
+
+.user-container {
+    margin-top: -12px;
+    margin-left: 45px;
+}
+
+.col-1 {
+    flex: 0 0 auto;
+    width: 4.888888%;
+}
+
+a table {
+    width: 100%;
+}
+
+tr.example-detail-row {
+    height: 0;
+}
+
+tr:hover {
+    background: whitesmoke;
+}
+
+tr:focus {
+    background: #efefef;
+}
+
+td.mat-cell:first-of-type {
+    padding-left: 13px !important;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+
+.example-element-detail {
+    overflow: hidden;
+    display: flex;
+}
+
+.example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+}
+
+.example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+}
+
+.example-element-description {
+    padding: 16px;
+}
+
+.example-element-description-attribution {
+    opacity: 0.5;
+}
+
+input {
+    padding: 0 !important;
+}
+
+.mat-form-field-infix {
+    padding: 0.5em 0;
+    border-top: 0 im !important;
+}
+
+.user-input .input {
+    padding: 0 !important;
+}
+
+.mat-form-field-infix ng-tns-c59-2 {
+    padding: 0 !important;
+}
+
+.field-input-user .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0 !important;
+}
+
+.photo-design {
+    width: 54px;
+    height: 54px;
+    color: #EAEAEA;
+    background-color: #EAEAEA;
+    margin: 5px;
+}
+
+.mat-menu-item {
+    font-family: 'Manrope';
+    font-size: 12px;
+    font-weight: 400;
+}
