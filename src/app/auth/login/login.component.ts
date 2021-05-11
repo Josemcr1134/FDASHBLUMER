@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       _this._Globals.email = data.user.email;
       _this._Globals.photo = data.user.photo;
     
-    _this._Globals.setToken(data.access);
+    _this._Globals.setToken(data.token);
     _this.route.navigate(['/Pages'])
   }
   

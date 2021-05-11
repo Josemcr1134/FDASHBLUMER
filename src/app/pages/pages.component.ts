@@ -29,6 +29,7 @@ constructor(private breakpointObserver: BreakpointObserver,
               console.log(`Dialog result: ${result}`);
             });
           }
+          name=this.Global.name;
            ChangePassword() {
             const dialogRef = this.dialog.open(ChangePasswordComponent);
         

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections'
 import { MatTableDataSource } from '@angular/material/table';
+import { GlobalsService } from 'src/app/services/Globals/globals.service';
+import { ApiBaseService } from 'src/app/services/api-base/api-base-service.service';
+import { Router, UrlTree } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ApiRegisterService } from 'src/app/services/api-register/api-register-service.service';
 export interface PeriodicElement {
   ID: number,
   Photo: string,
@@ -27,14 +32,22 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
+  servicios: any[] = [];
+  total: number;
+  size: number;
+  page = 0;
+
 
    displayedColumns: string[] = [ 'select', 'ID', 'Photo', 'Name', 'lastName', 'CARBONPAY','tipo','menu'];
    dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
    selection = new SelectionModel<PeriodicElement>(true, []);
 
-  constructor() { }
+  constructor(public globals: GlobalsService, 
+              public apiRegister: ApiRegisterService, router: Router, matDialog: MatDialog) { }
 
-  ngOnInit(): void {
+  ngOnInit(
+  ): void {
+    this.listar();
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -59,6 +72,29 @@ export class UsersComponent implements OnInit {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.ID + 1}`;
+  }
+
+  listar() {
+    //this.confirm.set_phone(this.phone);
+    let filters = '';
+    filters += '?page=' + (this.page + 1);
+    filters += '&q=' + 'cuetoadolfo';
+
+    let path = this.apiRegister.urls.listUsers + filters;
+    console.log(path);
+
+    this.apiRegister.GetUsers(this, path, this.UsuariosObtenidos, this.errorHanndler);
+  }
+
+  UsuariosObtenidos(_this, data) {
+    _this.servicios = data;
+    _this.dataSource = data;
+    _this.total = data.length;
+    _this.size = data.length;
+  }
+
+  errorHanndler(_this, data) {
+    console.log("error " + data.error.message);
   }
 }
 
