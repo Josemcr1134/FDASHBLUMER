@@ -17,40 +17,34 @@
                             </td>
                         </ng-container>
                         <!-- ID Column -->
-                        <ng-container matColumnDef="ID">
+                        <ng-container matColumnDef="id">
                             <th mat-header-cell *matHeaderCellDef> ID DE LA TRANSACCION </th>
-                            <td mat-cell *matCellDef="let element"> {{element.ID}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                         </ng-container>
                         <!-- Emisor Column -->
-                        <ng-container matColumnDef="Emisor">
+                        <ng-container matColumnDef="from_user">
                             <th mat-header-cell *matHeaderCellDef> EMISOR </th>
                             <td mat-cell *matCellDef="let element">
-                                {{element.Emisor}}
+                                {{element.from_user.full_name}}
                             </td>
                         </ng-container>
                         <!-- Receptor Column -->
-                        <ng-container matColumnDef="Receptor">
+                        <ng-container matColumnDef="to_user">
                             <th mat-header-cell *matHeaderCellDef> RECEPTOR </th>
-                            <td mat-cell *matCellDef="let element"> {{element.Receptor}} </td>
-                        </ng-container>
-
-                        <!-- lastName Column -->
-                        <ng-container matColumnDef="Comision">
-                            <th mat-header-cell *matHeaderCellDef> COMISION </th>
-                            <td mat-cell *matCellDef="let element"> {{element.Comision}}CP </td>
+                            <td mat-cell *matCellDef="let element"> {{element.to_user.full_name}} </td>
                         </ng-container>
                         <!-- CARBONPAY Column -->
-                        <ng-container matColumnDef="CARBONPAY">
+                        <ng-container matColumnDef="amount">
                             <th mat-header-cell *matHeaderCellDef> CARBONPAY </th>
-                            <td mat-cell *matCellDef="let element"> {{element.CARBONPAY}}CP </td>
+                            <td mat-cell *matCellDef="let element"> {{element.amount}}CP </td>
                         </ng-container>
                         <!-- CARBONPAY Column -->
-                        <ng-container matColumnDef="fecha">
+                        <ng-container matColumnDef="created_at">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>
                                 <span class="text-align-middle">FECHA</span>
                                 <mat-icon class="align-middle arrow">arrow_downward</mat-icon>
                             </th>
-                            <td mat-cell *matCellDef="let element"> {{element.fecha}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
                         </ng-container>
                         <!-- MENU Column -->
                         <ng-container matColumnDef="menu">

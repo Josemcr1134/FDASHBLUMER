@@ -14,7 +14,10 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       urlSendCode:'/api/v1/register-person/sendcode_phone/',
       tipoServicio: '/api/v1/services/list-service-types/',
       loginServicio:'/dash/api/v1/auth/login',
-      listUsers: '/dash/api/v1/user/users'
+      listUsers: '/dash/api/v1/user/users',
+      transactionsList: '/dash/api/v1/user/transactions',
+      CamapaignsList: '/dash/api/v1/ads/pending_ads',
+      MarketPlaceList: '/dash/api/v1/products/pending_products'
     }
   
     sendCodePhone = (_this, data , successHandler, errorHandler) =>{
@@ -29,6 +32,17 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     GetUsers = ( _this, url, successHandler, errorHandler) => {
       this.apiBase.doGet(_this,this.urls.listUsers,null, successHandler, errorHandler,false);
     }
+    GetTransactions = ( _this, url, transaccionesObtenidas, errorHandler) => {
+      this.apiBase.doGet(_this,this.urls.transactionsList,null, transaccionesObtenidas, errorHandler,false);
+    }
+    GetCampaign = ( _this, url, CamapanasObtenidas, errorHandler) => {
+      this.apiBase.doGet(_this,this.urls.CamapaignsList,null, CamapanasObtenidas, errorHandler,false);
+    }
+    GetMarketPlace = ( _this, url, ProductosObtenidos, errorHandler) => {
+      this.apiBase.doGet(_this,this.urls.MarketPlaceList,null, ProductosObtenidos, errorHandler,false);
+    }
+
+    
   }
   
 

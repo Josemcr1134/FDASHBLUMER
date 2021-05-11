@@ -7,24 +7,14 @@ import { Router, UrlTree } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiRegisterService } from 'src/app/services/api-register/api-register-service.service';
 export interface PeriodicElement {
-  ID: number,
-  Photo: string,
-  Name: string,
-  lastName: string,
-  CARBONPAY: number,
+  user_id: string,
+  photo: string,
+  first_name: string,
+  last_name: string,
+  wallet: string,
   tipo: string;
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {ID: 1, Photo: '', Name: 'Pedro', lastName: 'Perez', CARBONPAY:1567, tipo: 'NORMAL' },
-  {ID: 2, Photo: '', Name: 'Jose', lastName: 'Cuello', CARBONPAY:4345, tipo: 'INFLUENCER'},
-  {ID: 3, Photo: '', Name: 'Juan', lastName: 'Royo', CARBONPAY:987, tipo: 'EMPRENDIMIENTO'},
-  {ID: 4, Photo: '', Name: 'Ricardo', lastName: 'Lopez', CARBONPAY:7812, tipo: 'NORMAL'},
-  {ID: 5, Photo: '', Name: 'Ernesto', lastName: 'Ruiz', CARBONPAY:5432, tipo: 'EMPRENDIMIENTO'},
-  {ID: 6, Photo: '', Name: 'Carlos', lastName: 'Rodriguez', CARBONPAY:3098, tipo: 'NORMAL'},
-  {ID: 7, Photo: '', Name: 'Maria', lastName: 'Viera', CARBONPAY:3022, tipo: 'INFLUENCER'},
-  {ID: 8, Photo: '', Name: 'Annie', lastName: 'Jimeno', CARBONPAY:2309, tipo: 'EMPRESA'},
-  
-];
+
 
 @Component({
   selector: 'app-users',
@@ -38,9 +28,9 @@ export class UsersComponent implements OnInit {
   page = 0;
 
 
-   displayedColumns: string[] = [ 'select', 'ID', 'Photo', 'Name', 'lastName', 'CARBONPAY','tipo','menu'];
-   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-   selection = new SelectionModel<PeriodicElement>(true, []);
+   displayedColumns: string[] = [ 'select', 'user_id', 'photo', 'first_name', 'last_name', 'wallet','menu'];
+   dataSource = new MatTableDataSource(this.servicios);
+   selection = new SelectionModel(true, []);
 
   constructor(public globals: GlobalsService, 
               public apiRegister: ApiRegisterService, router: Router, matDialog: MatDialog) { }
@@ -71,7 +61,7 @@ export class UsersComponent implements OnInit {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.ID + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.user_id + 1}`;
   }
 
   listar() {

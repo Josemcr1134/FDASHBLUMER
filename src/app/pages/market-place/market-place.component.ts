@@ -1,38 +1,35 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-export interface PeriodicElement {
-  ID: number,
-  Category: string,
-  Title: string,
-  Location: string,
-  Price: number,
-  Date: string,
-  Status: string;
-
+import { Router } from '@angular/router';
+import { ApiRegisterService } from 'src/app/services/api-register/api-register-service.service';
+import { GlobalsService } from 'src/app/services/Globals/globals.service';
+export interface MarketPlace_Type {
+  id: string,
+  name: string,
+  seller_name: string,
+  price: number,
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {ID: 1456, Category: 'Cepillos', Title: '@ambiTeath', Location: 'Barranquilla/Colombia', Price:1567, Date: '11/11/20', Status: 'ACTIVO' },
-  {ID: 2341, Category: 'Tennis Deportivos ', Title: '@BSPORTS', Location: 'Santiago/Chile', Price:4345, Date: '11/09/21', Status: 'ACTIVO'},
-  {ID: 3452, Category: 'Pitillos Reutilizables', Title: '@ambillos', Location: 'Buenos Aires/Argentina', Price:987, Date: '11/08/20', Status: 'ACTIVO'},
-  {ID: 4789, Category: 'Bolsas Biodegradables', Title: '@BioBags', Location: 'Ciudad de mexico', Price:7812, Date:  '11/10/20', Status: 'ACTIVO'},
-  
-  
-];
+
 @Component({
   selector: 'app-marketplace',
   templateUrl: './market-place.component.html',
   styleUrls: ['./market-place.component.scss']
 })
 export class MarketplaceComponent implements OnInit {
-
-  constructor() { }
-
+  servicios: any[] = [];
+  total: number;
+  size: number;
+  page = 0;
+  constructor(public globals: GlobalsService, 
+    public apiRegister: ApiRegisterService, router: Router, matDialog: MatDialog) { }
   ngOnInit(): void {
+    this.listar()
   }
-  displayedColumns: string[] = [ 'select', 'ID', 'Category', 'Title', 'Location','Price', 'Date', 'Status','menu'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-  selection = new SelectionModel<PeriodicElement>(true, []);
+  displayedColumns: string[] = [ 'select', 'id', 'name',  'seller_name','price', 'menu'];
+  dataSource = new MatTableDataSource<MarketPlace_Type>(this.servicios);
+  selection = new SelectionModel<MarketPlace_Type>(true, []);
 
  
  applyFilter(event: Event) {
@@ -53,11 +50,28 @@ export class MarketplaceComponent implements OnInit {
  }
 
  /** The label for the checkbox on the passed row */
- checkboxLabel(row?: PeriodicElement): string {
+ checkboxLabel(row?: MarketPlace_Type): string {
    if (!row) {
      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
    }
-   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.ID + 1}`;
+   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
  }
+ listar() {
+  //this.confirm.set_phone(this.phone);
+  let path = this.apiRegister.urls.MarketPlaceList;
+  console.log(path);
 
+  this.apiRegister.GetMarketPlace(this, path, this.ProductosObtenidos, this.errorHanndler);
+}
+
+ProductosObtenidos(_this, data) {
+  _this.servicios = data;
+  _this.dataSource = data;
+  _this.total = data.length;
+  _this.size = data.length;
+}
+
+errorHanndler(_this, data) {
+  console.log("error " + data.error.message);
+}
 }

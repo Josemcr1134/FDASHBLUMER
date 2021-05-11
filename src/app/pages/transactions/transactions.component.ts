@@ -1,38 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { SelectionModel } from '@angular/cdk/collections';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ApiRegisterService } from 'src/app/services/api-register/api-register-service.service';
+import { GlobalsService } from 'src/app/services/Globals/globals.service';
+import { PeriodicElement } from '../edit-information/edit-information.component';
 
-export interface PeriodicElement {
-  ID: number,
-  Emisor: string,
-  Receptor: string,
-  CARBONPAY: number,
-  Comision: number,
-  fecha: string;
+export interface transactions_type {
+  id: string,
+  from_user: string,
+  to_user: string,
+  created_at: string,
+  amount: number
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {ID: 1456, Emisor: ' Juan', Receptor: 'Pedro', Comision: 12, CARBONPAY:1567, fecha: '40/11/20' },
-  {ID: 2341, Emisor: 'Jose ', Receptor: 'Kenny', Comision: 13, CARBONPAY:4345, fecha: '70/09/21'},
-  {ID: 3452, Emisor: 'Vincenzo', Receptor: 'Juan', Comision: 8, CARBONPAY:987, fecha: '60/08/20'},
-  {ID: 4789, Emisor: 'Ricardo', Receptor: 'Manuel', Comision: 4, CARBONPAY:7812, fecha:  '40/10/20'},
-  
-  
-];
+
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
   styleUrls: ['./transactions.component.scss']
 })
 export class TransactionsComponent implements OnInit {
+  servicios: any[] = [];
+  total: number;
+  size: number;
+  page = 0;
 
- 
-  displayedColumns: string[] = [ 'select', 'ID', 'Emisor', 'Receptor', 'CARBONPAY','Comision', 'fecha','menu'];
-   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
-   selection = new SelectionModel<PeriodicElement>(true, []);
+  displayedColumns: string[] = [ 'select', 'id', 'from_user', 'to_user', 'created_at','amount' ,'menu'];
+   dataSource = new MatTableDataSource<transactions_type>(this.servicios);
+   selection = new SelectionModel<transactions_type>(true, []);
 
-  constructor() { }
+   constructor(public globals: GlobalsService, 
+    public apiRegister: ApiRegisterService, router: Router, matDialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.listar()
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -52,10 +54,33 @@ export class TransactionsComponent implements OnInit {
   }
 
   /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PeriodicElement): string {
+  checkboxLabel(row?: transactions_type): string {
     if (!row) {
       return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
     }
-    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.ID + 1}`;
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id + 1}`;
+  }
+
+  listar() {
+    //this.confirm.set_phone(this.phone);
+    let filters = '';
+    filters += '?page=' + (this.page + 1);
+    filters += '&q=' + 'cuetoadolfo';
+
+    let path = this.apiRegister.urls.transactionsList + filters;
+    console.log(path);
+
+    this.apiRegister.GetTransactions(this, path, this.transaccionesObtenidas, this.errorHanndler);
+  }
+
+  transaccionesObtenidas(_this, data) {
+    _this.servicios = data;
+    _this.dataSource = data;
+    _this.total = data.length;
+    _this.size = data.length;
+  }
+
+  errorHanndler(_this, data) {
+    console.log("error " + data.error.message);
   }
 }

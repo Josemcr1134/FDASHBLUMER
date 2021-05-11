@@ -1,0 +1,109 @@
+.dialog-title {
+  font-family: 'Manrope';
+  font-weight: bold;
+  font-size: 18px;
+  color: #000000;
+}
+
+.user-title {
+  font-size: 18px;
+  font-family: 'Manrope' !important;
+  font-weight: bold;
+  color: #000000;
+}
+
+p {
+  font-size: 12px;
+  font-family: 'Manrope' !important;
+}
+
+button.mat-raised-button.save-button {
+  background: transparent -webkit-gradient(linear, right top, left top, from(var(--unnamed-color-00cda0)), color-stop(51%, var(--unnamed-color-00cabb)), to(#00C2E6)) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(270deg, var(--unnamed-color-00cda0) 0%, var(--unnamed-color-00cabb) 51%, #00C2E6 100%) 0% 0% no-repeat padding-box;
+  background: transparent -webkit-gradient(linear, right top, left top, from(#00CDA0), color-stop(51%, #00CABB), to(#00C2E6)) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(270deg, #00CDA0 0%, #00CABB 51%, #00C2E6 100%) 0% 0% no-repeat padding-box;
+  border-radius: 23px;
+  opacity: 1;
+  color: white;
+  width: 130px;
+  height: 38px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: 'Manrope' !important;
+  margin-right: 11px;
+}
+
+button.mat-raised-button.cancel-button {
+  border: 1px solid #D0D0D0 !important;
+  border-radius: 23px !important;
+  opacity: 1 !important;
+  background-color: transparent !important;
+  width: 130px;
+  height: 38px;
+  font-size: 12px;
+  color: #666666;
+  font-family: 'Manrope' !important;
+}
+
+.contenedor {
+  font-family: 'Manrope' !important;
+}
+
+.profile-img {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background-color: #00DC52;
+  color: white;
+  text-align: center;
+  margin-right: 18px;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-top: 10px;
+}
+
+.text-img {
+  margin-top: 5%;
+  font-size: 35px;
+  font-family: "Manrope";
+  font-weight: bold;
+  padding-top: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.button {
+  background: transparent -webkit-gradient(linear, right top, left top, from(var(--unnamed-color-00cda0)), color-stop(51%, var(--unnamed-color-00cabb)), to(#00C2E6)) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(270deg, var(--unnamed-color-00cda0) 0%, var(--unnamed-color-00cabb) 51%, #00C2E6 100%) 0% 0% no-repeat padding-box;
+  background: transparent -webkit-gradient(linear, right top, left top, from(#00CDA0), color-stop(51%, #00CABB), to(#00C2E6)) 0% 0% no-repeat padding-box;
+  background: transparent linear-gradient(270deg, #00CDA0 0%, #00CABB 51%, #00C2E6 100%) 0% 0% no-repeat padding-box;
+  border-radius: 23px;
+  opacity: 1;
+  color: white;
+  margin-left: 8px;
+}
+
+.dialog-form {
+  margin-top: 19px;
+}
+
+.mat-form-field {
+  width: 100% !important;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+.dialog-slideToggle {
+  margin-bottom: 20px;
+}
+/*# sourceMappingURL=user-information.component.css.map */
