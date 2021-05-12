@@ -19,7 +19,8 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       CamapaignsList: '/dash/api/v1/ads/pending_ads',
       MarketPlaceList: '/dash/api/v1/products/pending_products',
       adminPasswordUrl: '/dash/api/v1/user/edit_user',
-      sugeredUrl: '/dash/api/v1/user/suggested'
+      sugeredUrl: '/dash/api/v1/user/suggested',
+      changePasswordAdminUrl: '/dash/api/v1/user/change_password',
     }
   
     sendCodePhone = (_this, data , successHandler, errorHandler) =>{
@@ -48,6 +49,10 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     }
     SuggestedUser = (_this, data, SuggestedSucces, errorHandler ) => {
       this.apiBase.put(_this, this.urls.sugeredUrl, data , SuggestedSucces, errorHandler)
+    }
+    ChangePasswordAdmin = (_this, data, changeSucces, ErrorChange) => {
+      this.apiBase.post(_this,this.urls.changePasswordAdminUrl, data, changeSucces, ErrorChange)
+
     }
   }
   
