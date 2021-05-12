@@ -78,10 +78,27 @@
         </div>
         <div class="col-1"></div>
         <div class="col-2">
-            <mat-form-field appearance="outline" class="field-input-user">
-                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar Campañas" class="field-input-user" #input>
-                <mat-icon matPrefix style="color: #666666;" class="input">search</mat-icon>
-            </mat-form-field>
+          <mat-form-field  appearance="outline" class="field-input-user">
+            <input autocomplete="off" matInput (keyup)="applyFilter($event)"
+                   (click)="showSearchsItems($event)"
+                   placeholder="Buscar campañas" class="field-input-user" [(ngModel)]="search"
+                   #input>
+            <mat-icon matPrefix style="color: #666666;" class="input">search</mat-icon>
+            <div *ngIf="globals.showFilter"  class="filter-domain-box" >
+              <div class="filter-search">
+              </div>
+              <div class="filter-elements-container" >
+                <mat-selection-list [multiple]="false" #shoes >
+                  <mat-list-option *ngFor="let item of items" [value]="item" (click)="selectItem(item)">
+                    <div class="list-container">
+                      {{item.description}}
+                    </div>
+                  </mat-list-option>
+                </mat-selection-list>
+              </div>
+
+            </div>
+          </mat-form-field>
         </div>
 
 

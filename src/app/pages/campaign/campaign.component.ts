@@ -25,16 +25,36 @@ export class CampaignComponent implements OnInit {
   total: number;
   size: number;
   page = 0;
-  constructor(public globals: GlobalsService, 
+  filter = "";
+  search = "";
+  items:any[]=[{}];
+  constructor(public globals: GlobalsService,
     public apiRegister: ApiRegisterService, router: Router, matDialog: MatDialog) { }
   ngOnInit(): void {
-    this.listar()
+    this.listar();
   }
   displayedColumns: string[] = [ 'select', 'ad_id', 'description', 'interactions', 'created_at', 'status','menu'];
    dataSource = new MatTableDataSource<Campaign_Type>(this.servicios);
    selection = new SelectionModel<Campaign_Type>(true, []);
+  selectItem(item):void{
+    this.filter = item.username;
+    this.globals.showFilter = false;
+    this.listar();
+  }
+  showSearchsItems(event):void{
+    this.globals.showFilter = true;
+    this.queryFilter();
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  queryFilter(){
+    //let args = [{name:"page",value:1},{name:"q",value:this.search}];
+    this.apiRegister.GetCampaign(this,null,this.successFullFilter,this.errorHanndler);
+  }
+  successFullFilter(_this,data){
+    _this.items = data;
+  }
 
-  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -63,17 +83,17 @@ export class CampaignComponent implements OnInit {
     //this.confirm.set_phone(this.phone);
     let path = this.apiRegister.urls.CamapaignsList;
     console.log(path);
-  
+
     this.apiRegister.GetCampaign(this ,path, this.CamapanasObtenidas, this.errorHanndler);
   }
-  
+
   CamapanasObtenidas(_this, data) {
     _this.servicios = data;
     _this.dataSource = data;
     _this.total = data.length;
     _this.size = data.length;
   }
-  
+
   errorHanndler(_this, data) {
     console.log("error " + data.error.message);
   }

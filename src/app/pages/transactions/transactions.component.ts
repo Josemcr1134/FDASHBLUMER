@@ -25,20 +25,42 @@ export class TransactionsComponent implements OnInit {
   total: number;
   size: number;
   page = 0;
+  filter = "";
+  search = "";
+  items:any[]=[{}];
 
   displayedColumns: string[] = [ 'select', 'id', 'from_user', 'to_user', 'created_at','amount' ,'menu'];
    dataSource = new MatTableDataSource<transactions_type>(this.servicios);
    selection = new SelectionModel<transactions_type>(true, []);
 
-   constructor(public globals: GlobalsService, 
+   constructor(public globals: GlobalsService,
     public apiRegister: ApiRegisterService, router: Router, matDialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.listar()
+    this.listar();
+  }
+  selectItem(item):void{
+    this.filter = item.username;
+    this.globals.showFilter = false;
+    this.listar();
+  }
+  showSearchsItems(event):void{
+    this.globals.showFilter = true;
+    this.queryFilterUser();
+    event.preventDefault();
+    event.stopPropagation();
+  }
+  queryFilterUser(){
+    let args = [{name:"page",value:1},{name:"q",value:this.search}];
+    this.apiRegister.GetUsersFilter(this,args,this.usuariosFiltrados,this.errorHanndler);
+  }
+  usuariosFiltrados(_this,data){
+    _this.items = data;
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.queryFilterUser();
   }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
@@ -63,14 +85,8 @@ export class TransactionsComponent implements OnInit {
 
   listar() {
     //this.confirm.set_phone(this.phone);
-    let filters = '';
-    filters += '?page=' + (this.page + 1);
-    filters += '&q=' + 'cuetoadolfo';
-
-    let path = this.apiRegister.urls.transactionsList + filters;
-    console.log(path);
-
-    this.apiRegister.GetTransactions(this, path, this.transaccionesObtenidas, this.errorHanndler);
+    let args = [{name:"page",value:1},{name:"q",value:this.filter}];
+    this.apiRegister.GetTransactionsFiltre(this, args, this.transaccionesObtenidas, this.errorHanndler);
   }
 
   transaccionesObtenidas(_this, data) {

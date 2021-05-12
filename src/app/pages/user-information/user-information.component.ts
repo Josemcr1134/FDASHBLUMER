@@ -22,6 +22,10 @@ export class UserInformationComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  chooseFile(event){
+    let file = (<HTMLInputElement>event.targuet).files[0];
+  }
   changePassword(){
     let data = {
       first_name: this.first_name,
@@ -31,23 +35,23 @@ export class UserInformationComponent implements OnInit {
 /*       app_token: this.messagingService.token
  */    };
     this.apiRegister.ChangeAdminInfo(this, data, this.ChangeSucces, this.errorHandler);
-  
+
   }
   openSnackBar(message: string, action: string, ) {
     this._snackBar.open(message, action,);
-    
+
   }
-  
+
   ChangeSucces(_this, data ) {
     console.log(data.user.first_name);
       _this.global.name = data.user.first_name;
       _this.global.last_Name = data.user.last_name;
       _this.global.email = data.user.email;
-      
-    
+
+
     _this.global.setToken(data.token);
   }
-  
+
   errorHandler(_this, data) {
     //console.log("error " + data.error.errors[0]);
     _this.openSnackBar("Error", data.error.errors[0]);
