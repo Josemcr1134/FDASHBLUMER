@@ -13,22 +13,22 @@
         <div class="dialog-name">
             <p>NOMBRE</p>
             <mat-form-field class="user-name" appearance="outline">
-                <mat-label>Ernesto Carlos</mat-label>
-                <input type="text" matInput placeholder="nombre">
+                <mat-label> {{first_name}} </mat-label>
+                <input type="text" matInput placeholder="nombre" [(ngModel)]="first_name" required>
             </mat-form-field>
         </div>
         <div class="dialog-LastName">
             <p>APELLIDO </p>
             <mat-form-field class="user-lastName" appearance="outline">
-                <mat-label>Ruiz Romero</mat-label>
-                <input type="text" matInput placeholder="Apellido">
+                <mat-label> {{last_name}} </mat-label>
+                <input type="text" matInput placeholder="Apellido" [(ngModel)]="last_name" required>
             </mat-form-field>
         </div>
         <div class="dialog-mail">
             <p>CORREO </p>
             <mat-form-field class="user-mail" appearance="outline">
-                <mat-label>prometeocass@gmail.com</mat-label>
-                <input type="text" matInput placeholder="example@email.com">
+                <mat-label>{{email}} </mat-label>
+                <input type="text" matInput placeholder="example@email.com" [(ngModel)]="email" required>
             </mat-form-field>
         </div>
         <div class="dialog-typeAccount">
@@ -44,7 +44,7 @@
     </div>
 
     <div class="user-buttons">
-        <button mat-raised-button class="save-button">Guardar</button>
+        <button mat-raised-button class="save-button" mat-dialog-close (click)="changePassword()">Guardar</button>
         <button mat-raised-button class="cancel-button" mat-dialog-close>Cancelar</button>
 
     </div>

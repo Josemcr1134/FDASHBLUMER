@@ -17,7 +17,9 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       listUsers: '/dash/api/v1/user/users',
       transactionsList: '/dash/api/v1/user/transactions',
       CamapaignsList: '/dash/api/v1/ads/pending_ads',
-      MarketPlaceList: '/dash/api/v1/products/pending_products'
+      MarketPlaceList: '/dash/api/v1/products/pending_products',
+      adminPasswordUrl: '/dash/api/v1/user/edit_user',
+      sugeredUrl: '/dash/api/v1/user/suggested'
     }
   
     sendCodePhone = (_this, data , successHandler, errorHandler) =>{
@@ -41,8 +43,12 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     GetMarketPlace = ( _this, url, ProductosObtenidos, errorHandler) => {
       this.apiBase.doGet(_this,this.urls.MarketPlaceList,null, ProductosObtenidos, errorHandler,false);
     }
-
-    
+    ChangeAdminInfo = (_this, data, ChangeSucces, errorHandler) =>{
+      this.apiBase.put(_this,this.urls.adminPasswordUrl, data, ChangeSucces, errorHandler)
+    }
+    SuggestedUser = (_this, data, SuggestedSucces, errorHandler ) => {
+      this.apiBase.put(_this, this.urls.sugeredUrl, data , SuggestedSucces, errorHandler)
+    }
   }
   
 

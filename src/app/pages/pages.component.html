@@ -36,7 +36,7 @@
 <mat-sidenav-container class="sidenav-container  " style="overflow-x: hidden !important;">
     <mat-sidenav #drawer class="sidenav" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
         <mat-nav-list>
-            <a class="nav-link text-start mb-1 " [routerLink]="['/Pages/users']" routerLinkActive="router-link-active" mat-list-item>Usuarios</a>
+            <a class="nav-link text-start mb-1 " [routerLink]="['/Pages/']" routerLinkActive="router-link-active" mat-list-item>Usuarios</a>
             <a class="nav-link text-start" [routerLink]="['/Pages/transactions']" routerLinkActive="router-link-active" mat-list-item>Transacciones</a>
             <a class="nav-link text-start" [routerLink]="['/Pages/campaign']" routerLinkActive="router-link-active" mat-list-item>Campañas</a>
             <a class="nav-link text-start" [routerLink]="['/Pages/marketPlace']" routerLinkActive="router-link-active" mat-list-item>Marketplace</a>
