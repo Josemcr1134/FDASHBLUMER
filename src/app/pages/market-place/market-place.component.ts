@@ -1,10 +1,11 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ApiRegisterService } from 'src/app/services/api-register/api-register-service.service';
 import { GlobalsService } from 'src/app/services/Globals/globals.service';
+import {MatPaginator} from '@angular/material/paginator';
 export interface MarketPlace_Type {
   id: string,
   name: string,
@@ -28,11 +29,17 @@ export class MarketplaceComponent implements OnInit {
   constructor(public globals: GlobalsService,
     public apiRegister: ApiRegisterService, router: Router, matDialog: MatDialog) { }
   ngOnInit(): void {
-    this.listar()
+    this.listar();
   }
   displayedColumns: string[] = [ 'select', 'id', 'name',  'seller_name','price', 'menu'];
   dataSource = new MatTableDataSource<MarketPlace_Type>(this.servicios);
   selection = new SelectionModel<MarketPlace_Type>(true, []);
+
+  @ViewChild('paginator') set paginator(content: MatPaginator) {
+    if (content) {
+      this.dataSource.paginator = content;
+    }
+  }
 
   selectItem(item):void{
     this.filter = item.username;

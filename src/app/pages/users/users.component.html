@@ -51,8 +51,8 @@
                                         <mat-icon>more_horiz</mat-icon>
                                       </button>
                                 <mat-menu #menu="matMenu">
-                                    <button mat-menu-item class="text-center">
-                                        <a [routerLink]="['/Pages/edit']">Editar informacion</a>
+                                    <button  mat-menu-item class="text-center">
+                                        <a (click)="editUser(element)">Editar informacion</a>
                                     </button>
                                     <button mat-menu-item class="text-center">
                                           <span>Bloquear</span>
@@ -196,8 +196,8 @@
                                     <mat-icon>more_horiz</mat-icon>
                                       </button>
                                 <mat-menu #menu="matMenu">
-                                    <button mat-menu-item class="text-center">
-                                        <a [routerLink]="['/home/edit']">Editar informacion</a>
+                                    <button (click)="editUser(element)" mat-menu-item class="text-center">
+                                        <a >Editar informacion</a>
                                     </button>
                                     <button mat-menu-item class="text-center">
                                           <span>Bloquear</span>

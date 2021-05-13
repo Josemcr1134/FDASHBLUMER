@@ -3,6 +3,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
+import {GlobalsService} from "../../services/Globals/globals.service";
+import {Router} from "@angular/router";
+import {ApiRegisterService} from "../../services/api-register/api-register-service.service";
 export interface PeriodicElement {
   ID: number,
   Photo: string,
@@ -20,7 +23,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {ID: 6, Photo: '', Name: 'Carlos', lastName: 'Rodriguez', CARBONPAY:3098, tipo: 'NORMAL'},
   {ID: 7, Photo: '', Name: 'Maria', lastName: 'Viera', CARBONPAY:3022, tipo: 'INFLUENCER'},
   {ID: 8, Photo: '', Name: 'Annie', lastName: 'Jimeno', CARBONPAY:2309, tipo: 'EMPRESA'},
-  
+
 ];
 @Component({
   selector: 'app-edit-information',
@@ -35,23 +38,28 @@ export class EditInformationComponent implements OnInit {
   filteredOptions: Observable<string[]>;
   password = new FormControl('', [Validators.required, Validators.email]);
   password1 = new FormControl('', [Validators.required, Validators.email]);
+  valor:number = this.globals.userToEdit.wallet;
     hide = true;
     contador = 0
     cantidad = 3;
+    sexo = "1";
   sumar = function () {
     this.contador += this.cantidad;
-    console.log('sumar')
+    this.valor = +this.globals.userToEdit.wallet;
+    this.globals.userToEdit.wallet = ( this.cantidad + this.valor);
+    console.log('sumar');
 
-  } 
+  }
   restar = function () {
     this.contador -= this.cantidad;
-    console.log('restar')
-  } 
-  constructor( ) { 
-    
+    this.globals.userToEdit.wallet=this.globals.userToEdit.wallet-this.cantidad;
+    console.log('restar');
+  }
+  constructor( public globals:GlobalsService,private router:Router, public apiRegister:ApiRegisterService) {
+
     }
-    
-   
+
+
   ngOnInit(): void {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -67,7 +75,7 @@ export class EditInformationComponent implements OnInit {
 
     return this.options.filter(option => option.toLowerCase().indexOf(filterValue) === 0);
   }
-  
+
   getErrorMessage() {
     if (this.password1.value === this.password.value) {
       return 'Contraseñas coinciden';
@@ -76,5 +84,39 @@ export class EditInformationComponent implements OnInit {
     }
 
   }
- 
+  save(){
+    this.apiRegister.ChangeAdminInfo(this,this.globals.userToEdit,this.successfullSaved,this.errorHandler);
+  }
+  successfullSaved(_this,data){
+    alert("Se guardaron los cambios");
+  }
+  errorHandler(_this,data){
+    alert("Error");
+    console.log("Error "+data);
+  }
+  cancel(){
+    this.router.navigate(['/Pages/']);
+  }
+
+  savePasword(){
+    let errors = this.password.errors;
+    if(errors!=null){
+      console.log(errors);
+    }
+    let  data = {
+      user_id: this.globals.userToEdit.user_id,
+      new_password: this.password.value
+
+    };
+    this.apiRegister.ChangePasswordUser(this,data,this.successfullSaved,this.errorHandler);
+  }
+
+  sendPoints(){
+    let data = {
+      to: this.globals.userToEdit.user_id,
+      amount: this.contador
+    }
+    this.apiRegister.SendPoints(this,data,this.successfullSaved,this.errorHandler);
+  }
+
 }

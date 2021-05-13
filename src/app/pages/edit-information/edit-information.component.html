@@ -13,14 +13,15 @@
                         <div class="col-6 first-row">
                             <p>USERNAME</p>
                             <mat-form-field appearance="outline">
-                                <mat-label>@ernesto_ruiz</mat-label>
-                                <input type="text" matInput placeholder="@user">
+                                <mat-label>*</mat-label>
+                                <input [(ngModel)]="globals.userToEdit.username" type="text" matInput placeholder="@user">
                             </mat-form-field>
                         </div>
                         <div class="col-6 first-row">
-                            <div class="profile-img align-middle">
+                            <div *ngIf="globals.userToEdit.photo==null" class="profile-img align-middle">
                                 <div class="text-img align-middle text-center">E</div>
                             </div>
+                            <img *ngIf="globals.userToEdit.photo!=null" src="{{globals.userToEdit.photo}}" class="profile-img">
                             <button mat-raised-button class="cancel-button">Cargar imagen</button>
 
                         </div>
@@ -28,39 +29,47 @@
                             <p>NOMBRE</p>
                             <mat-form-field appearance="outline">
                                 <mat-label>Ernesto Carlos</mat-label>
-                                <input type="text" matInput placeholder="nombre">
+                                <input [(ngModel)]="globals.userToEdit.first_name"  type="text" matInput placeholder="nombre">
                             </mat-form-field>
                         </div>
                         <div class="col-6 second-row">
                             <p>APELLIDO </p>
                             <mat-form-field appearance="outline">
                                 <mat-label>Ruiz Romero</mat-label>
-                                <input type="text" matInput placeholder="Apellido">
+                                <input autocomplete="off" [(ngModel)]="globals.userToEdit.last_name" type="text" matInput placeholder="Apellido">
                             </mat-form-field>
                         </div>
                         <div class="col-6 third-row">
                             <p> FECHA DE NACIMIENTO </p>
                             <mat-form-field appearance="outline">
                                 <mat-label>03 de marzo de 2021</mat-label>
-                                <input type="text" matInput placeholder="Fecha de nacimiento">
+                                <input  autocomplete="off"[(ngModel)]="globals.userToEdit.created_at" type="text" matInput placeholder="Fecha de nacimiento">
                             </mat-form-field>
                         </div>
                         <div class="col-6 third-row">
                             <p>SEXO</p>
-                            <mat-form-field appearance="outline">
-                                <mat-label>Masculino</mat-label>
-                                <input type="text" [formControl]="myControl" placeholder="Genero" [matAutocomplete]="auto" matInput>
-                                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-                                    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                                        {{option}}
-                                    </mat-option>
-                                </mat-autocomplete>
-                            </mat-form-field>
+                          <mat-form-field appearance="outline">
+                            <mat-label>Select an option</mat-label>
+                            <mat-select [(ngModel)]="globals.userToEdit.sexo" class="mat-selectbox">
+                              <mat-option value="1">Masculino</mat-option>
+                              <mat-option value="2">Femenino</mat-option>
+                              <mat-option value="3">Otro</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-12 third-row">
+                          <p>TIPO DE CUENTA</p>
+                          <section class="example-section">
+                            <mat-checkbox [(ngModel)]="globals.userToEdit.suggested" class="example-margin">Usuarios</mat-checkbox>
+                            <mat-checkbox [(ngModel)]="globals.userToEdit.influencer" class="example-margin" >Influencer</mat-checkbox>
+                            <mat-checkbox [(ngModel)]="globals.userToEdit.entrepreneur"class="example-margin" >Emprendimiento</mat-checkbox>
+                            <mat-checkbox [(ngModel)]="globals.userToEdit.business"class="example-margin" >Empresa/Anunciante</mat-checkbox>
+                          </section>
                         </div>
                     </div>
                     <div class="col-6 third-row mb-1">
-                        <button mat-raised-button class="save-button">Guardar</button>
-                        <button mat-raised-button class="cancel-button">Cancelar</button>
+                        <button mat-raised-button (click)="save()" class="save-button">Guardar</button>
+                        <button mat-raised-button (click)="cancel()" class="cancel-button">Cancelar</button>
 
                     </div>
                 </mat-tab>
@@ -68,7 +77,7 @@
                     <p class="first-row">CAMBIAR CONTRASEÑA</p>
                     <mat-form-field class="  password" appearance="outline">
                         <mat-label>******** </mat-label>
-                        <input matInput [type]="hide ? 'password' : 'text'" [formControl]="password1">
+                        <input autocomplete="off" matInput [type]="hide ? 'password' : 'text'" [formControl]="password1">
                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide">
                           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                           </button>
@@ -76,12 +85,12 @@
                     <p>CONFIRMAR NUEVA CONTRASEÑA</p>
                     <mat-form-field class="password" appearance="outline">
                         <mat-label>*******</mat-label>
-                        <input type="password" matInput placeholder="Repite tu contraseña" [formControl]="password">
+                        <input autocomplete="off" type="password" matInput placeholder="Repite tu contraseña" [formControl]="password">
                         <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
                     </mat-form-field>
                     <div class="col-6 third-row mb-1">
-                        <button mat-raised-button class="save-button">Guardar</button>
-                        <button mat-raised-button class="cancel-button">Cancelar</button>
+                        <button mat-raised-button (click)="savePasword()" class="save-button">Guardar</button>
+                        <button mat-raised-button (click)="cancel()" class="cancel-button">Cancelar</button>
 
                     </div>
                 </mat-tab>
@@ -89,7 +98,7 @@
                     <div class="balance-container">
                         <div class="balance">
                             <p class="balance-title">SALDO EN LA WALLET</p>
-                            <div class="balance-value"> {{cantidad}} CP </div>
+                            <div class="balance-value"> {{globals.userToEdit.wallet}} CP </div>
                         </div>
                         <div class="addSubstract">
                             <p class="addSubstract-title">AGREGAR O RESTAR SALDO</p>
@@ -97,12 +106,12 @@
                                 <button mat-button class="substract">
                                     <mat-icon (click)="restar()">remove_circle_outline</mat-icon>
                                 </button>
-                                <div class="count-value"> {{cantidad}} </div>
-                                <button mat-button class="add"> 
+                                <div class="count-value"> {{contador}} </div>
+                                <button mat-button class="add">
                                     <mat-icon  (click)="sumar()">add_circle_outline</mat-icon>
                                 </button>
                             </div>
-                            <button mat-button class="button">
+                            <button (click)="sendPoints()" mat-button class="button">
                                 Modificar saldo
                             </button>
                         </div>

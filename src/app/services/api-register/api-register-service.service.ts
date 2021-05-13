@@ -21,6 +21,8 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       adminPasswordUrl: '/dash/api/v1/user/edit_user',
       sugeredUrl: '/dash/api/v1/user/suggested',
       changePasswordAdminUrl: '/dash/api/v1/user/change_password',
+      changePasswordUserUrl: '/dash/api/v1/user/change_user_password',
+      sendPointsUrl: '/dash/api/v1/user/send_points',
     }
 
     sendCodePhone = (_this, data , successHandler, errorHandler) =>{
@@ -59,6 +61,13 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     ChangePasswordAdmin = (_this, data, changeSucces, ErrorChange) => {
       this.apiBase.post(_this,this.urls.changePasswordAdminUrl, data, changeSucces, ErrorChange)
 
+    }
+    ChangePasswordUser = (_this, data, changeSucces, ErrorChange) => {
+      this.apiBase.post(_this,this.urls.changePasswordUserUrl, data, changeSucces, ErrorChange)
+
+    }
+    SendPoints = (_this, data, changeSucces, ErrorChange) => {
+      this.apiBase.post(_this,this.urls.sendPointsUrl, data, changeSucces, ErrorChange);
     }
   }
 

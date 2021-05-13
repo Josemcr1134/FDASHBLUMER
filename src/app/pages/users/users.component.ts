@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections'
 import { MatTableDataSource } from '@angular/material/table';
 import { GlobalsService } from 'src/app/services/Globals/globals.service';
@@ -6,6 +6,7 @@ import { ApiBaseService } from 'src/app/services/api-base/api-base-service.servi
 import { Router, UrlTree } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiRegisterService } from 'src/app/services/api-register/api-register-service.service';
+import {MatPaginator} from '@angular/material/paginator';
 export interface PeriodicElement {
   user_id: string,
   photo: string,
@@ -35,12 +36,18 @@ export class UsersComponent implements OnInit {
    selection = new SelectionModel(true, []);
 
   constructor(public globals: GlobalsService,
-              public apiRegister: ApiRegisterService, router: Router, matDialog: MatDialog) { }
+              public apiRegister: ApiRegisterService, private router: Router, matDialog: MatDialog) { }
 
   ngOnInit(
   ): void {
     this.listar();
   }
+  editUser(user): void
+  {
+    this.globals.userToEdit = user;
+    this.router.navigate(['/Pages/edit']);
+  }
+
   selectItem(item):void{
     this.filter = item.username;
     this.globals.showFilter = false;

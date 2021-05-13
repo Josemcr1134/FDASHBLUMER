@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import {User} from "../../models/User";
 export interface Confirmar{
   payMethod: number;
   coupon: string;
@@ -42,6 +43,7 @@ public distancia=0;
   public hasNotification = false;
   public last_Name : string;
   public showFilter = false;
+  public userToEdit: User = new User();
   setToken(token: string): void {
     localStorage.setItem('token', token);
     localStorage.setItem('name', this.name);

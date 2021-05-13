@@ -19,7 +19,7 @@ const routes: Routes = [
       {path: 'campaign', component: CampaignComponent , canActivate:[GuardsService],},
       {path: 'marketPlace', component: MarketplaceComponent, canActivate:[GuardsService],},
       {path: 'transactions', component: TransactionsComponent, canActivate:[GuardsService],},
-      {path: 'edit',component: EditInformationComponent, canActivate:[GuardsService],}
+      {path: 'edit', component: EditInformationComponent, canActivate:[GuardsService],}
     ]
    },
 ];
