@@ -18,7 +18,7 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       transactionsList: '/dash/api/v1/user/transactions',
       CamapaignsList: '/dash/api/v1/ads/pending_ads',
       MarketPlaceList: '/dash/api/v1/products/pending_products',
-      adminPasswordUrl: '/dash/api/v1/user/edit_user',
+      EditUserdUrl: '/dash/api/v1/user/edit_user',
       sugeredUrl: '/dash/api/v1/user/suggested',
       changePasswordAdminUrl: '/dash/api/v1/user/change_password',
     }
@@ -44,8 +44,8 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     GetMarketPlace = ( _this, url, ProductosObtenidos, errorHandler) => {
       this.apiBase.doGet(_this,this.urls.MarketPlaceList,null, ProductosObtenidos, errorHandler,false);
     }
-    ChangeAdminInfo = (_this, data, ChangeSucces, errorHandler) =>{
-      this.apiBase.put(_this,this.urls.adminPasswordUrl, data, ChangeSucces, errorHandler)
+    EditUser = (_this, data, ChangeSucces, errorHandler) =>{
+      this.apiBase.put(_this,this.urls.EditUserdUrl, data, ChangeSucces, errorHandler)
     }
     SuggestedUser = (_this, data, SuggestedSucces, errorHandler ) => {
       this.apiBase.put(_this, this.urls.sugeredUrl, data , SuggestedSucces, errorHandler)

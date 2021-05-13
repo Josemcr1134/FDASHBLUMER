@@ -28,7 +28,7 @@ body {
     height: 100%;
     font-family: 'Manrope' !important;
     background-color: #FBFBFB !important;
-    overflow-x: hidden !important;
+    overflow: hidden !important;
 }
 
 mat-ink-bar.mat-ink-bar {
@@ -189,4 +189,10 @@ mat-icon {
 
 .mat-form-field-wrapper.user-account {
     padding-bottom: 21px !important;
+}
+
+.mat-checkbox-layout .mat-checkbox-label {
+    line-height: 24px;
+    font-family: 'Manrope';
+    font-size: 14px;
 }

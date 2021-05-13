@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections'
 import { MatTableDataSource } from '@angular/material/table';
 import { GlobalsService } from 'src/app/services/Globals/globals.service';
-import { ApiBaseService } from 'src/app/services/api-base/api-base-service.service';
-import { Router, UrlTree } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiRegisterService } from 'src/app/services/api-register/api-register-service.service';
 export interface PeriodicElement {
@@ -12,7 +11,9 @@ export interface PeriodicElement {
   first_name: string,
   last_name: string,
   wallet: string,
-  tipo: string;
+  influencer: true,
+  business: true,
+  entrepreneur: false,
 }
 
 
@@ -26,9 +27,10 @@ export class UsersComponent implements OnInit {
   total: number;
   size: number;
   page = 0;
+ 
 
-
-   displayedColumns: string[] = [ 'select', 'user_id', 'photo', 'first_name', 'last_name', 'wallet','menu'];
+  
+   displayedColumns: string[] = [ 'select', 'user_id', 'photo', 'first_name', 'last_name', 'wallet','tipo','menu' ];
    dataSource = new MatTableDataSource(this.servicios);
    selection = new SelectionModel(true, []);
 
@@ -39,6 +41,9 @@ export class UsersComponent implements OnInit {
   ): void {
     this.listar();
   }
+  
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

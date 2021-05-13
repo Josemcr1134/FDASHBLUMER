@@ -36,15 +36,15 @@ export class EditInformationComponent implements OnInit {
   password = new FormControl('', [Validators.required, Validators.email]);
   password1 = new FormControl('', [Validators.required, Validators.email]);
     hide = true;
-    contador = 0
+    contador = 1
     cantidad = 3;
   sumar = function () {
-    this.contador += this.cantidad;
+    this.contador + this.cantidad;
     console.log('sumar')
 
   } 
   restar = function () {
-    this.contador -= this.cantidad;
+    this.contador - this.cantidad;
     console.log('restar')
   } 
   constructor( ) { 

@@ -30,7 +30,7 @@ export class UserInformationComponent implements OnInit {
       user_id : this.user_id
 /*       app_token: this.messagingService.token
  */    };
-    this.apiRegister.ChangeAdminInfo(this, data, this.ChangeSucces, this.errorHandler);
+    this.apiRegister.EditUser(this, data, this.ChangeSucces, this.errorHandler);
   
   }
   openSnackBar(message: string, action: string, ) {
@@ -52,4 +52,5 @@ export class UserInformationComponent implements OnInit {
     //console.log("error " + data.error.errors[0]);
     _this.openSnackBar("Error", data.error.errors[0]);
   }
+  
 }

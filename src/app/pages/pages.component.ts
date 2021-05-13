@@ -21,7 +21,11 @@ export class PagesComponent implements OnInit {
   );
 
 constructor(private breakpointObserver: BreakpointObserver,
-           public dialog: MatDialog, private Global: GlobalsService, private route: Router ) {}
+           public dialog: MatDialog, private Global: GlobalsService, private route: Router ) {
+           
+
+           }
+            name =this.Global.name;
            AccountDetails() {
             const dialogRef = this.dialog.open(UserInformationComponent);
         
@@ -29,7 +33,7 @@ constructor(private breakpointObserver: BreakpointObserver,
               console.log(`Dialog result: ${result}`);
             });
           }
-          name=this.Global.name;
+          
            ChangePassword() {
             const dialogRef = this.dialog.open(ChangePasswordComponent);
         

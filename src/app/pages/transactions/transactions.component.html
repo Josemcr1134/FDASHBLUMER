@@ -1,5 +1,7 @@
 <ng-container>
     <div class="user-container">
+        <div class="header">
+        </div>
         <span class="user-title mt-5">Transacciones</span>
     </div>
     <div class="row">
@@ -44,7 +46,7 @@
                                 <span class="text-align-middle">FECHA</span>
                                 <mat-icon class="align-middle arrow">arrow_downward</mat-icon>
                             </th>
-                            <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.created_at| slice:0:10}} </td>
                         </ng-container>
                         <!-- MENU Column -->
                         <ng-container matColumnDef="menu">
@@ -73,6 +75,7 @@
                             <td class="mat-cell" colspan="4">Usuario no encontrado "{{input.value}}"</td>
                         </tr>
                     </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
                 </mat-tab>
                 <mat-tab label="Billeteras">
                 </mat-tab>
@@ -80,7 +83,7 @@
         </div>
         <div class="col-2">
             <mat-form-field appearance="outline" class="field-input-user">
-                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar usuarios" class="field-input-user" #input>
+                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar Transacciones" class="field-input-user" #input>
                 <mat-icon matPrefix style="color: #666666;" class="input">search</mat-icon>
             </mat-form-field>
         </div>
