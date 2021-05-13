@@ -28,7 +28,7 @@ constructor(private breakpointObserver: BreakpointObserver,
             name =this.Global.name;
            AccountDetails() {
             const dialogRef = this.dialog.open(UserInformationComponent);
-        
+
             dialogRef.afterClosed().subscribe(result => {
               console.log(`Dialog result: ${result}`);
             });
@@ -36,18 +36,21 @@ constructor(private breakpointObserver: BreakpointObserver,
           
            ChangePassword() {
             const dialogRef = this.dialog.open(ChangePasswordComponent);
-        
+
             dialogRef.afterClosed().subscribe(result => {
               console.log(`Dialog result: ${result}`);
             });
           }
-        
+
           ngOnInit(): void {
           }
           logout(){
             this.Global.logout()
             this.route.navigate([''])
-            
+
           }
-      
+          close(){
+             this.Global.showFilter = false;
+          }
+
 }

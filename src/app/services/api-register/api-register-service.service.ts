@@ -9,7 +9,7 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
   export class ApiRegisterService {
 
     constructor(public apiBase: ApiBaseService) { }
-  
+
     public urls = {
       urlSendCode:'/api/v1/register-person/sendcode_phone/',
       tipoServicio: '/api/v1/services/list-service-types/',
@@ -21,8 +21,10 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       EditUserdUrl: '/dash/api/v1/user/edit_user',
       sugeredUrl: '/dash/api/v1/user/suggested',
       changePasswordAdminUrl: '/dash/api/v1/user/change_password',
+      changePasswordUserUrl: '/dash/api/v1/user/change_user_password',
+      sendPointsUrl: '/dash/api/v1/user/send_points',
     }
-  
+
     sendCodePhone = (_this, data , successHandler, errorHandler) =>{
       this.apiBase.postLogin(_this, this.urls.urlSendCode, data, successHandler, errorHandler);
     }
@@ -35,8 +37,14 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     GetUsers = ( _this, url, successHandler, errorHandler) => {
       this.apiBase.doGet(_this,this.urls.listUsers,null, successHandler, errorHandler,false);
     }
+    GetUsersFilter = ( _this, args, successHandler, errorHandler) => {
+      this.apiBase.doGet(_this,this.urls.listUsers, args, successHandler, errorHandler,false);
+    }
     GetTransactions = ( _this, url, transaccionesObtenidas, errorHandler) => {
       this.apiBase.doGet(_this,this.urls.transactionsList,null, transaccionesObtenidas, errorHandler,false);
+    }
+    GetTransactionsFiltre = ( _this, args, transaccionesObtenidas, errorHandler) => {
+      this.apiBase.doGet(_this,this.urls.transactionsList,args, transaccionesObtenidas, errorHandler,false);
     }
     GetCampaign = ( _this, url, CamapanasObtenidas, errorHandler) => {
       this.apiBase.doGet(_this,this.urls.CamapaignsList,null, CamapanasObtenidas, errorHandler,false);
@@ -54,6 +62,13 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       this.apiBase.post(_this,this.urls.changePasswordAdminUrl, data, changeSucces, ErrorChange)
 
     }
+    ChangePasswordUser = (_this, data, changeSucces, ErrorChange) => {
+      this.apiBase.post(_this,this.urls.changePasswordUserUrl, data, changeSucces, ErrorChange)
+
+    }
+    SendPoints = (_this, data, changeSucces, ErrorChange) => {
+      this.apiBase.post(_this,this.urls.sendPointsUrl, data, changeSucces, ErrorChange);
+    }
   }
-  
+
 

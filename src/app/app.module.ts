@@ -9,21 +9,23 @@ import { AuthModule } from './auth/auth.module';
 import { NotpagefoundComponent } from './notpagefound/notpagefound.component';
 
 import { pagesModule } from './pages/pages.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotpagefoundComponent,
-    
 
-    
+
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AuthModule,
-    pagesModule
+    pagesModule,
+    MatPaginatorModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

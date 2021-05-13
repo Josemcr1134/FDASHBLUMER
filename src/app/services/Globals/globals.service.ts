@@ -1,5 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import {User} from "../../models/User";
 export interface Confirmar{
   payMethod: number;
   coupon: string;
@@ -41,6 +42,8 @@ public distancia=0;
   public correoGoogle='';
   public hasNotification = false;
   public last_Name : string;
+  public showFilter = false;
+  public userToEdit: User = new User();
   setToken(token: string): void {
     localStorage.setItem('token', token);
     localStorage.setItem('name', this.name);
@@ -54,7 +57,7 @@ public distancia=0;
     localStorage.setItem('tipo_documento', this.tipo_documento);
     localStorage.setItem('ciudad', this.ciudad);
     localStorage.setItem('cod_referido', this.cod_referido);
-    
+
 
     this.access = token;
   }
@@ -117,6 +120,9 @@ public distancia=0;
     localStorage.removeItem('ciudad');
     localStorage.removeItem('last_Name');
     localStorage.removeItem('photo');
+  }
+  coloseFilter(){
+    this.showFilter = false;
   }
 
 }
