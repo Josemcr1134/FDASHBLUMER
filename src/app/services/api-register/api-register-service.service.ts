@@ -10,9 +10,7 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
 
     constructor(public apiBase: ApiBaseService) { }
 
-    public urls = {
-      urlSendCode:'/api/v1/register-person/sendcode_phone/',
-      tipoServicio: '/api/v1/services/list-service-types/',
+    public urls = {  
       loginServicio:'/dash/api/v1/auth/login',
       listUsers: '/dash/api/v1/user/users',
       transactionsList: '/dash/api/v1/user/transactions',
@@ -23,13 +21,8 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       changePasswordAdminUrl: '/dash/api/v1/user/change_password',
       changePasswordUserUrl: '/dash/api/v1/user/change_user_password',
       sendPointsUrl: '/dash/api/v1/user/send_points',
-    }
-
-    sendCodePhone = (_this, data , successHandler, errorHandler) =>{
-      this.apiBase.postLogin(_this, this.urls.urlSendCode, data, successHandler, errorHandler);
-    }
-    tipo = ( _this, url, successHandler, errorHandler) => {
-      this.apiBase.get(_this,this.urls.tipoServicio, successHandler, errorHandler);
+      adminPasswordUrl: '/dash/api/v1/user/edit_user',
+      uploadPhotoUrl: '/dash/api/v1/user/upload_photo'
     }
     login(_this, data, loginSuccess, loginError){
       this.apiBase.post(_this,this.urls.loginServicio, data, loginSuccess, loginError)
@@ -68,6 +61,12 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     }
     SendPoints = (_this, data, changeSucces, ErrorChange) => {
       this.apiBase.post(_this,this.urls.sendPointsUrl, data, changeSucces, ErrorChange);
+    }
+    ChangeAdminInfo = (_this, data, ChangeSucces, errorHandler) =>{
+      this.apiBase.put(_this,this.urls.adminPasswordUrl, data, ChangeSucces, errorHandler)
+    }
+    uploadPhoto = (_this, FormData: FormData, SubidaCompletada?, SubidaFallida?) => {
+      this.apiBase.post(_this,this.urls.uploadPhotoUrl, FormData , SubidaCompletada, SubidaFallida)
     }
   }
 

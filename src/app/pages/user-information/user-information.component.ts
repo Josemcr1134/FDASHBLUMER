@@ -14,6 +14,7 @@ export class UserInformationComponent implements OnInit {
   public last_name: string =  this.global.last_Name
   public email: string = this.global.email
   public user_id: string = this.global.id
+  public photo: string = this.global.photo
   durationInSeconds = 5;
 
   constructor(private global: GlobalsService, private apiRegister: ApiRegisterService ,
@@ -31,16 +32,12 @@ export class UserInformationComponent implements OnInit {
       first_name: this.first_name,
       last_name:  this.last_name,
       email: this.email,
-      user_id : this.user_id
+      user_id : this.user_id,
+      photo: this.photo
 /*       app_token: this.messagingService.token
  */    };
-<<<<<<< HEAD
     this.apiRegister.EditUser(this, data, this.ChangeSucces, this.errorHandler);
   
-=======
-    this.apiRegister.ChangeAdminInfo(this, data, this.ChangeSucces, this.errorHandler);
-
->>>>>>> 4aab86cb39ecdf872f56c5ed317e95675d13ec4b
   }
   openSnackBar(message: string, action: string, ) {
     this._snackBar.open(message, action,);

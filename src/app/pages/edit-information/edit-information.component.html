@@ -11,79 +11,66 @@
                 <mat-tab label="Datos personales">
                     <div class="row">
                         <div class="col-6 first-row">
-                            <p>USERNAME</p>
+                            <p>USUARIO</p>
                             <mat-form-field appearance="outline">
-                                <mat-label>*</mat-label>
+                                <mat-label>Nombre de usuario</mat-label>
                                 <input [(ngModel)]="globals.userToEdit.username" type="text" matInput placeholder="@user">
                             </mat-form-field>
                         </div>
-                        <div class="col-6 first-row">
-                            <div *ngIf="globals.userToEdit.photo==null" class="profile-img align-middle">
-                                <div class="text-img align-middle text-center">E</div>
+                        <div class="col-6 first-row d-flex">
+                            <div *ngIf="preview" class="profile-img align-middle col-6">
+                                <img [src]="preview" alt="" class="profile-img">
                             </div>
-                            <img *ngIf="globals.userToEdit.photo!=null" src="{{globals.userToEdit.photo}}" class="profile-img">
-                            <button mat-raised-button class="cancel-button">Cargar imagen</button>
-
+                            <img *ngIf="globals.userToEdit.photo!=null && !preview " src="{{globals.userToEdit.photo}}" class="profile-img">
+                            <div class="charger col-6">
+                                <input type="file" name="charger" class="mt-4" (change)="capturarFile($event)" id="">
+                            </div>
                         </div>
                         <div class="col-6 second-row ">
                             <p>NOMBRE</p>
                             <mat-form-field appearance="outline">
-                                <mat-label>Ernesto Carlos</mat-label>
-                                <input [(ngModel)]="globals.userToEdit.first_name"  type="text" matInput placeholder="nombre">
+                                <mat-label>Ingresa tu nombre</mat-label>
+                                <input [(ngModel)]="globals.userToEdit.first_name" type="text" matInput placeholder="nombre">
                             </mat-form-field>
                         </div>
                         <div class="col-6 second-row">
                             <p>APELLIDO </p>
                             <mat-form-field appearance="outline">
-                                <mat-label>Ruiz Romero</mat-label>
+                                <mat-label>Ingresa tu apellido</mat-label>
                                 <input autocomplete="off" [(ngModel)]="globals.userToEdit.last_name" type="text" matInput placeholder="Apellido">
                             </mat-form-field>
                         </div>
                         <div class="col-6 third-row">
                             <p> FECHA DE NACIMIENTO </p>
                             <mat-form-field appearance="outline">
-                                <mat-label>03 de marzo de 2021</mat-label>
-                                <input  autocomplete="off"[(ngModel)]="globals.userToEdit.created_at" type="text" matInput placeholder="Fecha de nacimiento">
+                                <mat-label>Ingresa tu fecha de nacimiento</mat-label>
+                                <input autocomplete="off" [(ngModel)]="globals.userToEdit.created_at" type="text" matInput placeholder="Fecha de nacimiento">
                             </mat-form-field>
                         </div>
                         <div class="col-6 third-row">
                             <p>SEXO</p>
-                          <mat-form-field appearance="outline">
-                            <mat-label>Select an option</mat-label>
-                            <mat-select [(ngModel)]="globals.userToEdit.sexo" class="mat-selectbox">
-                              <mat-option value="1">Masculino</mat-option>
-                              <mat-option value="2">Femenino</mat-option>
-                              <mat-option value="3">Otro</mat-option>
-                            </mat-select>
-                          </mat-form-field>
+                            <mat-form-field appearance="outline">
+                                <mat-label>Selecciona tu sexo</mat-label>
+                                <mat-select [(ngModel)]="globals.userToEdit.sexo" class="mat-selectbox">
+                                    <mat-option value="1">Masculino</mat-option>
+                                    <mat-option value="2">Femenino</mat-option>
+                                    <mat-option value="3">Otro</mat-option>
+                                </mat-select>
+                            </mat-form-field>
                         </div>
                         <div class="col-12 third-row">
-                          <p>TIPO DE CUENTA</p>
-                          <section class="example-section">
-                            <mat-checkbox [(ngModel)]="globals.userToEdit.suggested" class="example-margin">Usuarios</mat-checkbox>
-                            <mat-checkbox [(ngModel)]="globals.userToEdit.influencer" class="example-margin" >Influencer</mat-checkbox>
-                            <mat-checkbox [(ngModel)]="globals.userToEdit.entrepreneur"class="example-margin" >Emprendimiento</mat-checkbox>
-                            <mat-checkbox [(ngModel)]="globals.userToEdit.business"class="example-margin" >Empresa/Anunciante</mat-checkbox>
-                          </section>
+                            <p>TIPO DE CUENTA</p>
+                            <section class="example-section">
+                                <mat-checkbox [(ngModel)]="globals.userToEdit.suggested" class="example-margin">Usuarios</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="globals.userToEdit.influencer" class="example-margin">Influencer</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="globals.userToEdit.entrepreneur" class="example-margin">Emprendimiento</mat-checkbox>
+                                <mat-checkbox [(ngModel)]="globals.userToEdit.business" class="example-margin">Empresa/Anunciante</mat-checkbox>
+                            </section>
                         </div>
                     </div>
-                    <div class="dialog-typeAccount mb-2">
-                        <p>TIPO DE CUENTA </p>
-                        <mat-checkbox class="m-1">
-                            Usuarios
-                        </mat-checkbox>
-                        <mat-checkbox class="m-1">
-                            Influencer
-                        </mat-checkbox>
-                        <mat-checkbox class="m-1">
-                            Emprendimiento
-                        </mat-checkbox>
-                        <mat-checkbox class="m-1">
-                            Empresa/Anunciante
-                        </mat-checkbox>
-                    </div>
+
                     <div class="col-6 third-row mb-1">
-                        <button mat-raised-button (click)="save()" class="save-button">Guardar</button>
+                        <button mat-raised-button (click)="save()" (click)="subirArchivo()" class="save-button">Guardar</button>
                         <button mat-raised-button (click)="cancel()" class="cancel-button">Cancelar</button>
 
                     </div>
@@ -121,7 +108,7 @@
                                 <button mat-button class="substract">
                                     <mat-icon (click)="restar()">remove_circle_outline</mat-icon>
                                 </button>
-                                <div class="count-value"> {{contador}} </div>
+                                <div class="count-value"> {{cantidad}} </div>
                                 <button mat-button class="add">
                                     <mat-icon  (click)="sumar()">add_circle_outline</mat-icon>
                                 </button>
@@ -138,7 +125,7 @@
         </div>
         <div class="col-2">
             <mat-form-field appearance="outline" class="field-input-user">
-                <input matInput (keyup)="applyFilter($event)" placeholder="Buscar usuarios" class="field-input-user" #input>
+                <input matInput placeholder="Buscar usuarios" class="field-input-user" #input>
                 <mat-icon matPrefix style="color: #666666;" class="input">search</mat-icon>
             </mat-form-field>
         </div>

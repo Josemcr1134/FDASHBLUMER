@@ -82,35 +82,10 @@
             </mat-tab-group>
         </div>
         <div class="col-2">
-<<<<<<< HEAD
             <mat-form-field appearance="outline" class="field-input-user">
                 <input matInput (keyup)="applyFilter($event)" placeholder="Buscar Transacciones" class="field-input-user" #input>
                 <mat-icon matPrefix style="color: #666666;" class="input">search</mat-icon>
             </mat-form-field>
-=======
-          <mat-form-field  appearance="outline" class="field-input-user">
-            <input autocomplete="off" matInput (keyup)="applyFilter($event)"
-                   (click)="showSearchsItems($event)"
-                   placeholder="Buscar usuarios" class="field-input-user" [(ngModel)]="search"
-                   #input>
-            <mat-icon matPrefix style="color: #666666;" class="input">search</mat-icon>
-            <div *ngIf="globals.showFilter"  class="filter-domain-box" >
-              <div class="filter-search">
-              </div>
-              <div class="filter-elements-container" >
-                <mat-selection-list [multiple]="false" #shoes >
-                  <mat-list-option *ngFor="let item of items" [value]="item" (click)="selectItem(item)">
-                    <div class="list-container">
-                      <img src="{{item.photo}}" class="img-item">
-                      {{item.username}}
-                    </div>
-                  </mat-list-option>
-                </mat-selection-list>
-              </div>
-
-            </div>
-          </mat-form-field>
->>>>>>> 4aab86cb39ecdf872f56c5ed317e95675d13ec4b
         </div>
 
 

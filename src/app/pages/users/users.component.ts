@@ -2,7 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {SelectionModel} from '@angular/cdk/collections'
 import { MatTableDataSource } from '@angular/material/table';
 import { GlobalsService } from 'src/app/services/Globals/globals.service';
-import { Router } from '@angular/router';
+import { ApiBaseService } from 'src/app/services/api-base/api-base-service.service';
+import { Router, UrlTree } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiRegisterService } from 'src/app/services/api-register/api-register-service.service';
 import {MatPaginator} from '@angular/material/paginator';
@@ -12,9 +13,7 @@ export interface PeriodicElement {
   first_name: string,
   last_name: string,
   wallet: string,
-  influencer: true,
-  business: true,
-  entrepreneur: false,
+  tipo: string;
 }
 
 
@@ -28,18 +27,11 @@ export class UsersComponent implements OnInit {
   total: number;
   size: number;
   page = 0;
-<<<<<<< HEAD
- 
-
-  
-   displayedColumns: string[] = [ 'select', 'user_id', 'photo', 'first_name', 'last_name', 'wallet','tipo','menu' ];
-=======
   filter = "";
   search = "";
   items:any[]=[{}];
 
    displayedColumns: string[] = [ 'select', 'user_id', 'photo', 'first_name', 'last_name', 'wallet','menu'];
->>>>>>> 4aab86cb39ecdf872f56c5ed317e95675d13ec4b
    dataSource = new MatTableDataSource(this.servicios);
    selection = new SelectionModel(true, []);
 
@@ -50,11 +42,6 @@ export class UsersComponent implements OnInit {
   ): void {
     this.listar();
   }
-<<<<<<< HEAD
-  
-
-
-=======
   editUser(user): void
   {
     this.globals.userToEdit = user;
@@ -79,7 +66,6 @@ export class UsersComponent implements OnInit {
   usuariosFiltrados(_this,data){
     _this.items = data;
   }
->>>>>>> 4aab86cb39ecdf872f56c5ed317e95675d13ec4b
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -123,4 +109,3 @@ export class UsersComponent implements OnInit {
     console.log("error " + data.error.message);
   }
 }
-
