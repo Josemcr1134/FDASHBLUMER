@@ -70,10 +70,16 @@ a {
     border-radius: 50%;
     background-color: #00DC52;
     color: white;
-    margin: auto 70px;
+    margin: auto 30px auto 20px;
     padding: 2px;
+}
+.profile-container{
+  display: inline-flex;
+  margin-left: 50px;
+  margin-right: 50px;
+  align-items: center;
 }
 
 .nav {
-    justify-content: center
+    justify-content: center;
 }

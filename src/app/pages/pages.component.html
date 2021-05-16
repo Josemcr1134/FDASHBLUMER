@@ -1,7 +1,7 @@
 <mat-toolbar class="toolbar">
     <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isHandset$ | async">
-  <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-</button>
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
     <a class="navbar-brand " style="margin-left: 15px;" href="#">
         <img src="../../../assets/login-logo.png" alt="" width="138px" height="30px">
     </a>
@@ -13,11 +13,11 @@
         </li>
         <li class="nav-item ">
             <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-          <span class="menuLabel">{{name}}</span>
-          <mat-icon>expand_more</mat-icon>
-       </button>
+              <span class="menuLabel">{{Global.name}}</span>
+              <mat-icon>expand_more</mat-icon>
+           </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item class="text-center">
+                <button *ngIf="false" mat-menu-item class="text-center">
                     <span (click)="AccountDetails()" >Editar perfil</span>
                 </button>
                 <button mat-menu-item class="text-center">
@@ -28,8 +28,12 @@
                 </button>
             </mat-menu>
         </li>
-        <li class="nav-item profile-img text-center  ">
+        <li class="nav-item text-center profile-container">
+          <div *ngIf="Global.photo==null || Global.photo=='null'" class="profile-img text-center">
             <p class="text-img text-center">E</p>
+          </div>
+          <img *ngIf="Global.photo!=null && Global.photo!='null'" src="{{Global.photo}}" class="profile-img">
+
         </li>
     </ul>
 </mat-toolbar>
@@ -45,3 +49,4 @@
     <router-outlet class="p-1">
     </router-outlet>
 </mat-sidenav-container>
+

@@ -20,33 +20,38 @@ export class PagesComponent implements OnInit {
     shareReplay()
   );
 
-constructor(private breakpointObserver: BreakpointObserver,
-           public dialog: MatDialog, private Global: GlobalsService, private route: Router ) {}
-           AccountDetails() {
-            const dialogRef = this.dialog.open(UserInformationComponent);
+  constructor(private breakpointObserver: BreakpointObserver,
+              public dialog: MatDialog, public Global: GlobalsService, private route: Router ) {
+    if(Global.id == null){
+      Global.loadProfile();
+    }
+  }
+  ngOnInit(): void {
+  }
+  AccountDetails() {
+    const dialogRef = this.dialog.open(UserInformationComponent);
 
-            dialogRef.afterClosed().subscribe(result => {
-              console.log(`Dialog result: ${result}`);
-            });
-          }
-          name=this.Global.name;
-           ChangePassword() {
-            const dialogRef = this.dialog.open(ChangePasswordComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  name=this.Global.name;
+  ChangePassword() {
+    const dialogRef = this.dialog.open(ChangePasswordComponent);
 
-            dialogRef.afterClosed().subscribe(result => {
-              console.log(`Dialog result: ${result}`);
-            });
-          }
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 
-          ngOnInit(): void {
-          }
-          logout(){
-            this.Global.logout()
-            this.route.navigate([''])
 
-          }
-          close(){
-             this.Global.showFilter = false;
-          }
+  logout(){
+    this.Global.logout()
+    this.route.navigate([''])
+
+  }
+  close(){
+    this.Global.showFilter = false;
+  }
 
 }

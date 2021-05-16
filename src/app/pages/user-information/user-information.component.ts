@@ -15,16 +15,24 @@ export class UserInformationComponent implements OnInit {
   public email: string = this.global.email
   public user_id: string = this.global.id
   durationInSeconds = 5;
+  edtitPhoto: File ;
+  srcPhoto;
 
-  constructor(private global: GlobalsService, private apiRegister: ApiRegisterService ,
+  constructor(public global: GlobalsService, private apiRegister: ApiRegisterService ,
               private route: Router, private _snackBar: MatSnackBar,
      ) { }
 
   ngOnInit(): void {
   }
 
-  chooseFile(event){
-    let file = (<HTMLInputElement>event.targuet).files[0];
+  choosePhoto(event): void
+  {
+    const file = event.target.files[0];
+    //this.edtitPhoto = file;
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = e => this.srcPhoto = reader.result;
+    this.edtitPhoto = file;
   }
   changePassword(){
     let data = {
@@ -43,6 +51,16 @@ export class UserInformationComponent implements OnInit {
   }
 
   ChangeSucces(_this, data ) {
+    if(_this.edtitPhoto!=null){
+      _this.apiRegister.UploadFile(_this, _this.global.id,function (_this,data){
+        _this.global.photo = data.data;
+        alert("Se guardaron los cambios");
+        console.log("exito");
+      },function (_this,data){
+        console.log("error"+ data.error);
+        alert("Error al cargar photo");
+      });
+    }
     console.log(data.user.first_name);
       _this.global.name = data.user.first_name;
       _this.global.last_Name = data.user.last_name;

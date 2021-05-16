@@ -7,6 +7,8 @@ import { Router, UrlTree } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiRegisterService } from 'src/app/services/api-register/api-register-service.service';
 import {MatPaginator} from '@angular/material/paginator';
+import {defaultTargetBuilders} from "@angular/cdk/schematics";
+import {User} from "../../models/User";
 export interface PeriodicElement {
   user_id: string,
   photo: string,
@@ -23,7 +25,7 @@ export interface PeriodicElement {
   styleUrls: ['./users.component.scss']
 })
 export class UsersComponent implements OnInit {
-  servicios: any[] = [];
+  servicios: User[] = [];
   total: number;
   size: number;
   page = 0;
@@ -33,6 +35,8 @@ export class UsersComponent implements OnInit {
 
    displayedColumns: string[] = [ 'select', 'user_id', 'photo', 'first_name', 'last_name', 'wallet','menu'];
    dataSource = new MatTableDataSource(this.servicios);
+   dataUsersBlocked = new MatTableDataSource(this.servicios);
+   dataUsersSuspending = new MatTableDataSource(this.servicios);
    selection = new SelectionModel(true, []);
 
   constructor(public globals: GlobalsService,
@@ -41,10 +45,30 @@ export class UsersComponent implements OnInit {
   ngOnInit(
   ): void {
     this.listar();
+    this.dataSource.paginator = this.paginator;
   }
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  @ViewChild('pagingUsersBlocked') set pagingUsersBlocked(content: MatPaginator) {
+    this.setDataSourcePaginator(this.dataUsersBlocked, content);
+  }
+  @ViewChild('pagingUsersSuspending') set pagingUsersSuspending(content: MatPaginator) {
+    this.setDataSourcePaginator(this.dataUsersSuspending, content);
+  }
+  setDataSourcePaginator(
+    dataSource: MatTableDataSource<any>,
+    paginatorContent: MatPaginator
+  ) {
+    if (paginatorContent) {
+      dataSource.paginator = paginatorContent;
+    }
+  }
+
   editUser(user): void
   {
-    this.globals.userToEdit = user;
+    this.globals.cleraruserEdit();
+    this.globals.setUserEdit(user);
     this.router.navigate(['/Pages/edit']);
   }
 
@@ -63,12 +87,18 @@ export class UsersComponent implements OnInit {
     let args = [{name:"page",value:1},{name:"q",value:this.search}];
     this.apiRegister.GetUsersFilter(this,args,this.usuariosFiltrados,this.errorHanndler);
   }
-  usuariosFiltrados(_this,data){
-    _this.items = data;
+  usuariosFiltrados(_this,data:User[]){
+    var filtrados: User[] = new Array;
+    for(let item of data){
+      if(item.is_active){
+        filtrados.push(item);
+      }
+    }
+    _this.items = filtrados;
   }
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    //const filterValue = (event.target as HTMLInputElement).value;
+    //this.dataSource.filter = filterValue.trim().toLowerCase();
     this.queryFilterUser();
   }
   isAllSelected() {
@@ -98,15 +128,46 @@ export class UsersComponent implements OnInit {
     this.apiRegister.GetUsersFilter(this, args, this.UsuariosObtenidos, this.errorHanndler);
   }
 
+  filterList(list,x,y){
+    let newList = [];
+    for(var a of list){
+      if(a[x]==y){
+        newList.push(a);
+      }
+    }
+    return newList;
+  }
+
   UsuariosObtenidos(_this, data) {
-    _this.servicios = data;
-    _this.dataSource = data;
+    _this.servicios = _this.filterList(data,"is_active",true);;
+    _this.dataSource = new MatTableDataSource(_this.servicios);
+    let usersBlocked = _this.filterList(data,"is_active",false);
+    _this.dataUsersSuspending = new MatTableDataSource(usersBlocked);
+    _this.dataUsersBlocked = new MatTableDataSource(usersBlocked);
+    _this.dataUsersBlocked.paginator = _this.pagingUsersBlocked;
+    _this.dataUsersSuspending.paginator = _this.pagingUsersSuspending;
+    _this.dataSource.paginator = _this.paginator;
     _this.total = data.length;
     _this.size = data.length;
   }
 
   errorHanndler(_this, data) {
     console.log("error " + data.error.message);
+  }
+
+  BlockedUser(userBlocked){
+    userBlocked.is_active = false;
+    //this.globals.userToEdit = userBlocked;
+    this.apiRegister.ChangeAdminInfo(this,userBlocked,this.successBlockedUser,this.errorHandlerBlockedUser);
+  }
+  successBlockedUser(_this, data){
+    _this.listar();
+    alert("El usurio fue bloquedo con exito");
+    //_this.globals.setUserEdit(_this.globals.userToEdit);
+    //_this.router.navigate(['/Pages/edit']);
+  }
+  errorHandlerBlockedUser(_this, data){
+    _this._snackBar.open("error", data.error.errors[0]);
   }
 }
 

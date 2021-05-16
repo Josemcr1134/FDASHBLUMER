@@ -18,11 +18,16 @@
                             </mat-form-field>
                         </div>
                         <div class="col-6 first-row">
-                            <div *ngIf="globals.userToEdit.photo==null" class="profile-img align-middle">
+                            <div *ngIf="(globals.userToEdit.photo==null || globals.userToEdit.photo=='null')&& edtitPhoto==null" class="profile-img align-middle">
                                 <div class="text-img align-middle text-center">E</div>
                             </div>
-                            <img *ngIf="globals.userToEdit.photo!=null" src="{{globals.userToEdit.photo}}" class="profile-img">
-                            <button mat-raised-button class="cancel-button">Cargar imagen</button>
+                          <img *ngIf="globals.userToEdit.photo!=null && edtitPhoto==null " src="{{globals.userToEdit.photo}}" class="profile-img">
+                          <img *ngIf="edtitPhoto!=null " src="{{srcPhoto}}" class="profile-img">
+
+                            <input style="display: none;"
+                                   (change)="choosePhoto($event)"
+                                   type="file"  #fileUpload>
+                            <button mat-raised-button (click)="fileUpload.click()" class="cancel-button">Cargar imagen</button>
 
                         </div>
                         <div class="col-6 second-row ">
@@ -43,17 +48,17 @@
                             <p> FECHA DE NACIMIENTO </p>
                             <mat-form-field appearance="outline">
                                 <mat-label>03 de marzo de 2021</mat-label>
-                                <input  autocomplete="off"[(ngModel)]="globals.userToEdit.created_at" type="text" matInput placeholder="Fecha de nacimiento">
+                                <input  autocomplete="off"[(ngModel)]="globals.userToEdit.birthday" type="text" matInput placeholder="Fecha de nacimiento">
                             </mat-form-field>
                         </div>
                         <div class="col-6 third-row">
                             <p>SEXO</p>
                           <mat-form-field appearance="outline">
                             <mat-label>Select an option</mat-label>
-                            <mat-select [(ngModel)]="globals.userToEdit.sexo" class="mat-selectbox">
-                              <mat-option value="1">Masculino</mat-option>
-                              <mat-option value="2">Femenino</mat-option>
-                              <mat-option value="3">Otro</mat-option>
+                            <mat-select [(ngModel)]="globals.userToEdit.gender" class="mat-selectbox">
+                              <mat-option *ngFor="let gender of listGenders" [value]="gender.code">
+                                {{gender.name}}
+                              </mat-option>
                             </mat-select>
                           </mat-form-field>
                         </div>

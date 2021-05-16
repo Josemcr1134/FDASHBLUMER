@@ -3,10 +3,15 @@
     <hr>
     <div class="dialog-body">
         <div class="dialog-img">
-            <div class="profile-img align-middle">
-                <div class="text-img align-middle text-center">E</div>
-            </div>
-            <button (click)="chooseFile($event)" mat-raised-button class="cancel-button">Cargar imagen</button>
+          <div *ngIf="(global.photo==null || global.photo=='null')&& edtitPhoto==null" class="profile-img align-middle">
+            <div class="text-img align-middle text-center">E</div>
+          </div>
+          <img *ngIf="global.photo!=null &&global.photo!='null' && edtitPhoto==null " src="{{global.photo}}" class="profile-img">
+          <img *ngIf="edtitPhoto!=null " src="{{srcPhoto}}" class="profile-img">
+          <input style="display: none;"
+                 (change)="choosePhoto($event)"
+                 type="file"  #fileUpload>
+            <button (click)="fileUpload.click()" mat-raised-button class="cancel-button">Cargar imagen</button>
         </div>
     </div>
     <div class="dialog-form">

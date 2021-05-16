@@ -23,6 +23,8 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       changePasswordAdminUrl: '/dash/api/v1/user/change_password',
       changePasswordUserUrl: '/dash/api/v1/user/change_user_password',
       sendPointsUrl: '/dash/api/v1/user/send_points',
+      uploadPhotourl: '/dash/api/v1/user/upload_photo',
+      approveProductUrl: '/dash/api/v1/products/change_product_status',
     }
 
     sendCodePhone = (_this, data , successHandler, errorHandler) =>{
@@ -55,6 +57,13 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     ChangeAdminInfo = (_this, data, ChangeSucces, errorHandler) =>{
       this.apiBase.put(_this,this.urls.adminPasswordUrl, data, ChangeSucces, errorHandler)
     }
+    UploadFile = (_this, data, ChangeSucces, errorHandler) =>{
+      const form = new FormData();
+      form.append('data',"{\"user_id\": \""+ data +"\"}");
+      form.append('file', _this.edtitPhoto);
+      this.apiBase.postUploadFile(_this,this.urls.uploadPhotourl, form, ChangeSucces, errorHandler);
+    }
+
     SuggestedUser = (_this, data, SuggestedSucces, errorHandler ) => {
       this.apiBase.put(_this, this.urls.sugeredUrl, data , SuggestedSucces, errorHandler)
     }
@@ -68,6 +77,9 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     }
     SendPoints = (_this, data, changeSucces, ErrorChange) => {
       this.apiBase.post(_this,this.urls.sendPointsUrl, data, changeSucces, ErrorChange);
+    }
+    ChangeStatusProduct = (_this, data, SuggestedSucces, errorHandler ) => {
+      this.apiBase.put(_this, this.urls.approveProductUrl, data , SuggestedSucces, errorHandler)
     }
   }
 

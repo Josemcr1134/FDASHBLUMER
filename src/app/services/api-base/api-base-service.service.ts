@@ -28,9 +28,20 @@ export class ApiBaseService {
     if (!token) {
       token = 'noUser';
     }
-
     httpOptions.headers = new HttpHeaders({'Content-Type': 'application/json'});
     httpOptions.headers = httpOptions.headers.append('Authorization', "Bearer " + token);
+  }
+
+  createAuthorizationHeaderUpload() {
+    let token = this.getToken();
+    if (!token) {
+      token = 'noUser';
+    }
+
+   // httpOptions.headers = new HttpHeaders({'Content-Type': 'multipart/form-data'});
+    httpOptions.headers = new HttpHeaders(undefined);
+    httpOptions.headers = httpOptions.headers.append('Authorization', "Bearer " + token);
+    //httpOptions.headers.append('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   }
 
   createAuthorizationHeader2() {
@@ -127,6 +138,20 @@ export class ApiBaseService {
   post(_this, url, data, successHandler, errorHandler) {
     const service = this.resolveServiceUrl(url, [], false);
     this.createAuthorizationHeader();
+    this.http.post(service, data, httpOptions).subscribe(
+      // tslint:disable-next-line:no-shadowed-variable
+      data => {
+        successHandler(_this, data);
+      },
+      (err: HttpErrorResponse) => {
+        errorHandler(_this, err);
+      }
+    );
+  }
+
+  postUploadFile(_this, url, data, successHandler, errorHandler){
+    const service = this.resolveServiceUrl(url, [], false);
+    this.createAuthorizationHeaderUpload();
     this.http.post(service, data, httpOptions).subscribe(
       // tslint:disable-next-line:no-shadowed-variable
       data => {
