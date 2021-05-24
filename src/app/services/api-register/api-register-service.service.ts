@@ -27,6 +27,7 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       approveProductUrl: '/dash/api/v1/products/change_product_status',
       usersBlockeds: '/dash/api/v1/user/blocked_users',
       suggestedUserUrl: '/dash/api/v1/user/suggested',
+      editUser: '/dash/api/v1/user/edit_user'
     }
 
     sendCodePhone = (_this, data , successHandler, errorHandler) =>{
@@ -58,6 +59,9 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     }
     ChangeAdminInfo = (_this, data, ChangeSucces, errorHandler) =>{
       this.apiBase.put(_this,this.urls.adminPasswordUrl, data, ChangeSucces, errorHandler)
+    }
+    EditUser = (_this, data, ChangeSucces, errorHandler) =>{
+    this.apiBase.put(_this,this.urls.editUser, data, ChangeSucces, errorHandler)
     }
     UploadFile = (_this, data, ChangeSucces, errorHandler) =>{
       const form = new FormData();
