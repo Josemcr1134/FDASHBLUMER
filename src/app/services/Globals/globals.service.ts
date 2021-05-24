@@ -1,6 +1,6 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {User} from "../../models/User";
+import {User} from '../../models/User';
 export interface Confirmar{
   payMethod: number;
   coupon: string;
@@ -13,35 +13,42 @@ export class GlobalsService {
   private router: Router;
   public phone: string = null;
   public documento: string = null;
-  public sms_code : number = null;
+  // tslint:disable-next-line:variable-name
+  public sms_code: number = null;
   public photo: string = null;
+  // tslint:disable-next-line:variable-name
   public secret_phone: number = null;
   public name: string = null;
   public id: string = null;
   public email: string = null;
+  // tslint:disable-next-line:variable-name
   public tipo_documento: string = null;
   public ciudad: string = null;
+  // tslint:disable-next-line:variable-name
   public cod_referido: string = null ;
+  // tslint:disable-next-line:variable-name
   public tipo_registro: number = null;
   public access: string = null;
-  public nombre_empresa : string = null;
+  // tslint:disable-next-line:variable-name
+  public nombre_empresa: string = null;
   public latitud = 0;
   public  longitud = 0;
-  public direccion = "";
-public distancia=0;
+  public direccion = '';
+public distancia = 0;
   public  latitud2 = 0;
   public  logitud2 = 0;
-  public direccion2 = "";
+  public direccion2 = '';
   public time = 0;
   public descuento = 0;
   public valor = 0;
-  public metodo =0;
+  public metodo = 0;
   public markerChange: EventEmitter<any> = new EventEmitter<any>();
   public onCargaMasiva: EventEmitter<any> = new EventEmitter<any>();
-  public nombreGoogle='';
-  public correoGoogle='';
+  public nombreGoogle = '';
+  public correoGoogle = '';
   public hasNotification = false;
-  public last_Name : string;
+  // tslint:disable-next-line:variable-name
+  public last_Name: string;
   public showFilter = false;
   public userToEdit: User = new User();
   setToken(token: string): void {
@@ -61,8 +68,9 @@ public distancia=0;
 
     this.access = token;
   }
+  // tslint:disable-next-line:typedef
   loadProfile(){
-    //localStorage.setItem('token', token);
+    // localStorage.setItem('token', token);
     this.name = localStorage.getItem('name');
     this.id = localStorage.getItem('id');
     this.last_Name = localStorage.getItem('last_Name');
@@ -74,7 +82,10 @@ public distancia=0;
     this.ciudad = localStorage.getItem('ciudad');
     this.cod_referido = localStorage.getItem('cod_referido');
   }
+  // tslint:disable-next-line:typedef
   setUserEdit( user: User ){
+    // tslint:disable-next-line:triple-equals
+    if ( user.email == '') { user.email = null; }
     localStorage.setItem('edi_user_id', user.user_id);
     localStorage.setItem('edi_wallet', '' + user.wallet);
     localStorage.setItem('edi_suggested', '' + user.suggested);
@@ -88,16 +99,24 @@ public distancia=0;
     localStorage.setItem('edi_username', user.username);
     localStorage.setItem('edi_birthday', user.birthday);
     localStorage.setItem('edi_is_active', '' + user.is_active);
+    localStorage.setItem('edi_email', user.email);
     this.userToEdit = user;
   }
+  // tslint:disable-next-line:typedef
   setEditWallet(data){
     localStorage.setItem('edi_wallet', '' + data);
   }
+  // tslint:disable-next-line:typedef
   setEditPhoto(data){
     localStorage.setItem('edi_photo', data);
   }
+  // tslint:disable-next-line:typedef
   getUserEdit(){
-    let userEdit = new User();
+    const userEdit = new User();
+    // tslint:disable-next-line:variable-name
+    let edi_photo = localStorage.getItem('edi_photo');
+    // tslint:disable-next-line:triple-equals
+    if (edi_photo == 'null') { edi_photo = null; }
     userEdit.user_id = localStorage.getItem('edi_user_id');
     userEdit.wallet = this.stringToNumber(localStorage.getItem('edi_wallet'));
     userEdit.suggested = this.stringToBoolean(localStorage.getItem('edi_suggested'));
@@ -105,14 +124,18 @@ public distancia=0;
     userEdit.entrepreneur = this.stringToBoolean(localStorage.getItem('edi_entrepreneur'));
     userEdit.influencer = this.stringToBoolean(localStorage.getItem('edi_influencer'));
     userEdit.gender = this.stringToNumber(localStorage.getItem('edi_gender'));
-    userEdit.photo = localStorage.getItem('edi_photo');
+    userEdit.photo = edi_photo;
     userEdit.last_name = localStorage.getItem('edi_last_name');
     userEdit.first_name = localStorage.getItem('edi_first_name');
     userEdit.username = localStorage.getItem('edi_username');
     userEdit.is_active = this.stringToBoolean(localStorage.getItem('edi_is_active'));
     userEdit.birthday = localStorage.getItem('edi_birthday');
+    userEdit.email = localStorage.getItem(('edi_email'));
+    if ( userEdit.email.length === 0 || userEdit.email === 'null') { userEdit.email = null; }
     this.userToEdit = userEdit;
   }
+
+  // tslint:disable-next-line:ban-types typedef
   cleraruserEdit(){
     localStorage.removeItem('edi_user_id');
     localStorage.removeItem('edi_wallet');
@@ -128,13 +151,18 @@ public distancia=0;
     localStorage.removeItem('edi_birthday');
     localStorage.removeItem('edi_is_active');
   }
-  stringToBoolean(data:String): Boolean{
+  getEditSuggsted(): Boolean{
+   return  this.stringToBoolean(localStorage.getItem('edi_suggested'));
+  }
+  // tslint:disable-next-line:ban-types
+  stringToBoolean(data: String): Boolean{
     try{
-      return (data=='true');
+      return (data === 'true');
     }catch (e) {
       return false;
     }
   }
+  // tslint:disable-next-line:ban-types
   stringToNumber(data: String): number
   {
     try{
@@ -191,6 +219,7 @@ public distancia=0;
     return this.ciudad;
   }
 
+  // tslint:disable-next-line:typedef
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
@@ -203,6 +232,7 @@ public distancia=0;
     localStorage.removeItem('last_Name');
     localStorage.removeItem('photo');
   }
+  // tslint:disable-next-line:typedef
   coloseFilter(){
     this.showFilter = false;
   }

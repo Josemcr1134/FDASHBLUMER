@@ -42,15 +42,15 @@ export class MarketplaceComponent implements OnInit {
   }
 
   approveProduct(product){
-    var data = {product_id:product.id,status:6,cancel_reason:"Producto aprobado"};
-    this.apiRegister.ChangeStatusProduct(this,data,this.successApproveProduct,this.errorHandlerApproveProduct);
+    var data = {product_id: product.id, status: 6, cancel_reason: 'Producto aprobado'};
+    this.apiRegister.ChangeStatusProduct(this,data, this.successApproveProduct, this.errorHandlerApproveProduct);
   }
   successApproveProduct(_this, data){
-    alert("El producto fue "+data.message);
+    alert('El producto fue ' + data.message);
     _this.listar();
   }
-  errorHandlerApproveProduct(_this,data){
-    alert("Error, no se pudo aprobar el producto");
+  errorHandlerApproveProduct(_this, data){
+    alert('Error, no se pudo aprobar el producto');
     console.log(data.message);
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -16,6 +16,32 @@ export interface PeriodicElement {
   CARBONPAY: number,
   tipo: string;
 }
+function equalsValidator(otherControl: AbstractControl): ValidatorFn {
+  return (control: AbstractControl): {[key: string]: any} => {
+    const value: any = control.value;
+    const otherValue: any = otherControl.value;
+    return otherValue === value ? null : { 'notEquals': { value, otherValue } };
+  };
+}
+
+export function ConfirmedValidator(controlName: string, matchingControlName: string){
+  return (formGroup: FormGroup) => {
+    const control = formGroup.controls[controlName];
+    const matchingControl = formGroup.controls[matchingControlName];
+    if (matchingControl.errors && !matchingControl.errors.confirmedValidator) {
+      return;
+    }
+    if (control.value !== matchingControl.value) {
+      matchingControl.setErrors({ confirmedValidator: true });
+    } else {
+      matchingControl.setErrors(null);
+    }
+  }
+}
+
+export const CustomValidators = {
+  equals: equalsValidator
+};
 const ELEMENT_DATA: PeriodicElement[] = [
   {ID: 1, Photo: '', Name: 'Pedro', lastName: 'Perez', CARBONPAY:1567, tipo: 'NORMAL' },
   {ID: 2, Photo: '', Name: 'Jose', lastName: 'Cuello', CARBONPAY:4345, tipo: 'INFLUENCER'},
@@ -39,15 +65,19 @@ export class EditInformationComponent implements OnInit {
   options: string[] = ['Masculino', 'Femenino', 'Otro'];
   listGenders: Genero[] = [{code:1, name: 'Masculino'},{code: 2, name: 'Femenino'},{code: 3, name: 'Otro'}];
   filteredOptions: Observable<string[]>;
-  password = new FormControl('', [Validators.required, Validators.email]);
-  password1 = new FormControl('', [Validators.required, Validators.email]);
-  valor:number = this.globals.userToEdit.wallet;
+  password = new FormControl('', [Validators.required]);
+  password1 = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  valor: number = this.globals.userToEdit.wallet;
     hide = true;
-    contador = 0
+    contador = 0;
     cantidad = 1;
-    sexo = "1";
+    sexo = '1';
   edtitPhoto: File ;
   srcPhoto;
+  valido = false;
+
+  formGroup: FormGroup | null = null;
+
 
   sumar = function () {
     this.contador += this.cantidad;
@@ -60,7 +90,24 @@ export class EditInformationComponent implements OnInit {
     if(this.contado<0) this.contador = this.cantidad;
     console.log('restar');
   }
-  constructor( public globals:GlobalsService,private router:Router, public apiRegister:ApiRegisterService,private _snackBar: MatSnackBar) {
+  constructor( public globals:GlobalsService,private router:Router,
+               public apiRegister:ApiRegisterService,
+               private _snackBar: MatSnackBar,
+               private fb: FormBuilder) {
+    /*this.formGroup = this.fb.group({
+      password: this.password,
+      password1: this.password1
+    });*/
+
+    /*this.formGroup.get('password1').setValidators(
+      CustomValidators.equals(this.formGroup.get('password'))
+    );*/
+    this.formGroup = fb.group({
+      password: ['', [Validators.required]],
+      password1: ['', [Validators.required]]
+    }, {
+      validator: ConfirmedValidator('password', 'password1')
+    });
 
     }
 
@@ -102,16 +149,39 @@ export class EditInformationComponent implements OnInit {
   }
 
   getErrorMessage() {
-    if (this.password1.value === this.password.value) {
+    console.log(this.password.invalid);
+    if ((this.formGroup.get('password').value as string)===(this.formGroup.get('password1').value as string)) {
       return 'Contraseñas coinciden';
     } else {
      return 'Las contraseñas no coinciden';
     }
 
   }
-  save(){
-      this.apiRegister.ChangeAdminInfo(this,this.globals.userToEdit,this.successfullSaved,this.errorHandler);
+  validate(){
+    if((this.formGroup.get('password').value as string)===(this.formGroup.get('password1').value as string)){
+      this.valido = true;
+    }else{
+      this.valido = false;
+    }
   }
+  save(){
+    if(this.globals.userToEdit.suggested != this.globals.getEditSuggsted()){
+      let data = {user_id:this.globals.userToEdit.user_id,suggested:this.globals.userToEdit.suggested};
+      this.apiRegister.SuggestUser(this, data, this.successfullSuggestUser,this.errorHandlerSuggestUser);
+    }else{
+      this.apiRegister.ChangeAdminInfo(this,this.globals.userToEdit,this.successfullSaved,this.errorHandler);
+    }
+
+  }
+
+  successfullSuggestUser(_this, data){
+    _this.apiRegister.ChangeAdminInfo(_this,_this.globals.userToEdit,_this.successfullSaved,_this.errorHandler);
+  }
+
+  errorHandlerSuggestUser(_this, data){
+    alert("Error al sugerir usuario");
+  }
+
   successfullSaved(_this,data){
 
     if(_this.edtitPhoto!=null){
@@ -133,7 +203,7 @@ export class EditInformationComponent implements OnInit {
   }
   successSendEnpoints(_this,data){
     alert("Se guardaron los cambios");
-    _this.globals.userToEdit.wallet = _this.globals.userToEdit.wallet+_this.contador;
+    _this.globals.userToEdit.wallet = (+_this.globals.userToEdit.wallet)+_this.contador;
     _this.globals.setEditWallet(_this.globals.userToEdit.wallet);
   }
   errorHandler(_this,data){
@@ -151,7 +221,7 @@ export class EditInformationComponent implements OnInit {
     }
     let  data = {
       user_id: this.globals.userToEdit.user_id,
-      new_password: this.password.value
+      new_password: (this.formGroup.get('password').value as string)
 
     };
     this.apiRegister.ChangePasswordUser(this,data,function (_this,data){

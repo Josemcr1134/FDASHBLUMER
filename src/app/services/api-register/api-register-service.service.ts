@@ -25,6 +25,8 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       sendPointsUrl: '/dash/api/v1/user/send_points',
       uploadPhotourl: '/dash/api/v1/user/upload_photo',
       approveProductUrl: '/dash/api/v1/products/change_product_status',
+      usersBlockeds: '/dash/api/v1/user/blocked_users',
+      suggestedUserUrl: '/dash/api/v1/user/suggested',
     }
 
     sendCodePhone = (_this, data , successHandler, errorHandler) =>{
@@ -80,6 +82,13 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     }
     ChangeStatusProduct = (_this, data, SuggestedSucces, errorHandler ) => {
       this.apiBase.put(_this, this.urls.approveProductUrl, data , SuggestedSucces, errorHandler)
+    }
+    //https://blumer.app/dash/api/v1/user/blocked_users?page=1&q=cuetoadolfo
+    GuetUsersBlockeds = ( _this, args, successHandler, errorHandler) => {
+      this.apiBase.doGet(_this,this.urls.usersBlockeds, args, successHandler, errorHandler,false);
+    }
+    SuggestUser = (_this, data, SuggestedSucces, errorHandler ) => {
+      this.apiBase.put(_this, this.urls.suggestedUserUrl, data , SuggestedSucces, errorHandler)
     }
   }
 

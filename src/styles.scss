@@ -25,10 +25,14 @@ $dashboard2-theme: mat-light-theme(( color: ( primary: $dashboard2-primary, acce
 
 html,
 body {
-    height: 100%;
+    height: auto;
     font-family: 'Manrope' !important;
     background-color: #FBFBFB !important;
     overflow-x: hidden !important;
+}
+
+.mat-tab-body-wrapper{
+  max-height: 565px !important;
 }
 
 mat-ink-bar.mat-ink-bar {
@@ -81,7 +85,7 @@ td.mat-footer-cell {
 
 .mat-menu-content:not(:empty) {
     width: 197px !important;
-    height: 126px !important;
+    height: 85px !important;
     padding: 0 !important;
 }
 

@@ -10,6 +10,7 @@ import { NotpagefoundComponent } from './notpagefound/notpagefound.component';
 
 import { pagesModule } from './pages/pages.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     AuthModule,
     pagesModule,
     MatPaginatorModule,
+    InfiniteScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

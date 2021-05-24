@@ -1,6 +1,9 @@
-<ng-container class="contenedor" ng-app='app'>
+<ng-container style="max-height: 600px;" class="contenedor" ng-app='app'>
     <div class="user-container">
+      <button (click)="cancel()" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
         <mat-icon class="align-middle mb-1">keyboard_arrow_left</mat-icon>
+      </button>
+
         <span class="user-title mt-5">Editar informacion</span>
     </div>
 
@@ -13,7 +16,7 @@
                         <div class="col-6 first-row">
                             <p>USERNAME</p>
                             <mat-form-field appearance="outline">
-                                <mat-label>*</mat-label>
+<!--                                <mat-label>*</mat-label>-->
                                 <input [(ngModel)]="globals.userToEdit.username" type="text" matInput placeholder="@user">
                             </mat-form-field>
                         </div>
@@ -33,28 +36,28 @@
                         <div class="col-6 second-row ">
                             <p>NOMBRE</p>
                             <mat-form-field appearance="outline">
-                                <mat-label>Ernesto Carlos</mat-label>
+<!--                                <mat-label>Ernesto Carlos</mat-label>-->
                                 <input [(ngModel)]="globals.userToEdit.first_name"  type="text" matInput placeholder="nombre">
                             </mat-form-field>
                         </div>
                         <div class="col-6 second-row">
                             <p>APELLIDO </p>
                             <mat-form-field appearance="outline">
-                                <mat-label>Ruiz Romero</mat-label>
+<!--                                <mat-label>Ruiz Romero</mat-label>-->
                                 <input autocomplete="off" [(ngModel)]="globals.userToEdit.last_name" type="text" matInput placeholder="Apellido">
                             </mat-form-field>
                         </div>
                         <div class="col-6 third-row">
                             <p> FECHA DE NACIMIENTO </p>
                             <mat-form-field appearance="outline">
-                                <mat-label>03 de marzo de 2021</mat-label>
+<!--                                <mat-label>03 de marzo de 2021</mat-label>-->
                                 <input  autocomplete="off"[(ngModel)]="globals.userToEdit.birthday" type="text" matInput placeholder="Fecha de nacimiento">
                             </mat-form-field>
                         </div>
                         <div class="col-6 third-row">
                             <p>SEXO</p>
                           <mat-form-field appearance="outline">
-                            <mat-label>Select an option</mat-label>
+<!--                            <mat-label>Select an option</mat-label>-->
                             <mat-select [(ngModel)]="globals.userToEdit.gender" class="mat-selectbox">
                               <mat-option *ngFor="let gender of listGenders" [value]="gender.code">
                                 {{gender.name}}
@@ -62,10 +65,16 @@
                             </mat-select>
                           </mat-form-field>
                         </div>
+                      <div class="col-12 third-row">
+                        <p>Estado</p>
+                        <section class="example-section">
+                          <mat-checkbox [(ngModel)]="globals.userToEdit.is_active" class="example-margin">Activo</mat-checkbox>
+                        </section>
+                      </div>
                         <div class="col-12 third-row">
                           <p>TIPO DE CUENTA</p>
                           <section class="example-section">
-                            <mat-checkbox [(ngModel)]="globals.userToEdit.suggested" class="example-margin">Usuarios</mat-checkbox>
+                            <mat-checkbox [(ngModel)]="globals.userToEdit.suggested" class="example-margin">Usuarios Sugeridos</mat-checkbox>
                             <mat-checkbox [(ngModel)]="globals.userToEdit.influencer" class="example-margin" >Influencer</mat-checkbox>
                             <mat-checkbox [(ngModel)]="globals.userToEdit.entrepreneur"class="example-margin" >Emprendimiento</mat-checkbox>
                             <mat-checkbox [(ngModel)]="globals.userToEdit.business"class="example-margin" >Empresa/Anunciante</mat-checkbox>
@@ -79,25 +88,27 @@
                     </div>
                 </mat-tab>
                 <mat-tab label="Contraseña">
+                  <form autocomplete="off" [formGroup]="formGroup">
                     <p class="first-row">CAMBIAR CONTRASEÑA</p>
                     <mat-form-field class="  password" appearance="outline">
-                        <mat-label>******** </mat-label>
-                        <input autocomplete="off" matInput [type]="hide ? 'password' : 'text'" [formControl]="password1">
+<!--                        <mat-label>******** </mat-label>-->
+                        <input placeholder="Digita tu nueva contraseña" (keyup)="validate()" autocomplete="new-password" matInput [type]="hide ? 'password' : 'text'" [formControl]="formGroup.controls['password']">
                         <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide">
                           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                           </button>
                     </mat-form-field>
                     <p>CONFIRMAR NUEVA CONTRASEÑA</p>
                     <mat-form-field class="password" appearance="outline">
-                        <mat-label>*******</mat-label>
-                        <input autocomplete="off" type="password" matInput placeholder="Repite tu contraseña" [formControl]="password">
-                        <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
+<!--                        <mat-label>*******</mat-label>-->
+                        <input autocomplete="new-password" (keyup)="validate()" type="password" matInput placeholder="Repite tu contraseña" [formControl]="formGroup.controls['password1']">
+                        <mat-error *ngIf="!valido">{{getErrorMessage()}}</mat-error>
                     </mat-form-field>
                     <div class="col-6 third-row mb-1">
-                        <button mat-raised-button (click)="savePasword()" class="save-button">Guardar</button>
+                        <button mat-raised-button [disabled]="!formGroup.valid" (click)="savePasword()" class="save-button">Guardar</button>
                         <button mat-raised-button (click)="cancel()" class="cancel-button">Cancelar</button>
 
                     </div>
+                  </form>
                 </mat-tab>
                 <mat-tab label="Billetera">
                     <div class="balance-container">

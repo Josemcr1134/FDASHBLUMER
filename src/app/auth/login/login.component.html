@@ -7,27 +7,27 @@
             <div class=" mb-3 form-group d-grid  col-3 mx-auto ">
                 <label class="label-form"> Usuario</label>
                 <mat-form-field appearance="outline">
-                    <mat-label style="color:#9B9A9A">correo@ejemplo.com</mat-label>
+<!--                    <mat-label style="color:#9B9A9A">correo@ejemplo.com</mat-label>-->
                     <input matInput placeholder="pat@example.com" style="color:#9B9A9A;" [(ngModel)]="user_name" required>
-                    <mat-error class="m-1"> El Corrreo no es valido.</mat-error>
+                    <mat-error class="m-1"> El Correo no es valido.</mat-error>
                 </mat-form-field>
             </div>
             <div class="mb-3 form-group d-grid col-3 mx-auto ">
                 <label class="label-form"> Contraseña</label>
                 <mat-form-field appearance="outline">
-                    <mat-label style="color: #9B9A9A;">********</mat-label>
-                    <input matInput placeholder="Placeholder" style="color:#9B9A9A;" [(ngModel)]="password" [type]="hide ? 'password' : 'text'" required>
+<!--                    <mat-label style="color: #9B9A9A;">********</mat-label>-->
+                    <input matInput placeholder="Contraseña" style="color:#9B9A9A;" [(ngModel)]="password" [type]="hide ? 'password' : 'text'" required>
                     <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
                     <mat-error>Constraseña Incorrecta</mat-error>
                 </mat-form-field>
             </div>
-            <div class="form-group d-grid gap-2 col-3 mx-auto" style="align-items: center;">
-                <p class="text-center ">
-                    <a [routerLink]="['/recuperar']" routerLinkActive="router-link-active" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                </p>
-            </div>
+<!--            <div class="form-group d-grid gap-2 col-3 mx-auto" style="align-items: center;">-->
+<!--                <p class="text-center ">-->
+<!--                    <a [routerLink]="['/recuperar']" routerLinkActive="router-link-active" class="forgot-password">¿Olvidaste tu contraseña?</a>-->
+<!--                </p>-->
+<!--            </div>-->
             <div class="form-group d-grid gap-2  mx-auto ">
                 <button type="submit" class="btn  text-center" (click)="login()"><strong>Ingresar</strong></button>
             </div>

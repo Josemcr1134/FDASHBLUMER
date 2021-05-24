@@ -35,8 +35,8 @@
                         </ng-container>
                         <!-- Location Column -->
                         <ng-container matColumnDef="created_at">
-                            <th mat-header-cell *matHeaderCellDef> UBICACION </th>
-                            <td mat-cell *matCellDef="let element"> {{element.created_at}} </td>
+                            <th mat-header-cell *matHeaderCellDef> FECHA CREACIÒN </th>
+                            <td mat-cell *matCellDef="let element"> {{element.created_at | date:'yyyy-MM-dd'}} </td>
                         </ng-container>
 
                         <!-- Status Column -->

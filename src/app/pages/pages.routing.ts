@@ -13,13 +13,13 @@ import { GuardsService } from '../services/Guard-services/guards.service';
 const routes: Routes = [
     {path: 'Pages',
     component: PagesComponent,
-    canActivate:[GuardsService],
-    children:[
-     {path: '', component: UsersComponent, canActivate:[GuardsService], },
-      {path: 'campaign', component: CampaignComponent , canActivate:[GuardsService],},
-      {path: 'marketPlace', component: MarketplaceComponent, canActivate:[GuardsService],},
-      {path: 'transactions', component: TransactionsComponent, canActivate:[GuardsService],},
-      {path: 'edit', component: EditInformationComponent, canActivate:[GuardsService],}
+    canActivate: [GuardsService],
+    children: [
+     {path: '', component: UsersComponent, canActivate: [GuardsService], },
+      {path: 'campaign', component: CampaignComponent , canActivate: [GuardsService], },
+      {path: 'marketPlace', component: MarketplaceComponent, canActivate: [GuardsService], },
+      {path: 'transactions', component: TransactionsComponent, canActivate: [GuardsService], },
+      {path: 'edit', component: EditInformationComponent, canActivate: [GuardsService], }
     ]
    },
 ];

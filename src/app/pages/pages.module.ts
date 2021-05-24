@@ -35,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSelectModule} from "@angular/material/select";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import {MatSelectModule} from "@angular/material/select";
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
-        MatPaginatorModule, MatSelectModule
+        MatPaginatorModule, MatSelectModule,
+        InfiniteScrollModule
     ],
     exports: [
         CampaignComponent,

@@ -6,7 +6,7 @@
         <div class="col-9">
             <mat-tab-group animationDuration="0ms" class="mt-1 mx-3 ">
                 <mat-tab label="Bases de datos">
-                    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                    <table  mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                         <!-- Checkbox Column -->
                         <ng-container matColumnDef="select">
                             <th mat-header-cell *matHeaderCellDef>
@@ -47,20 +47,9 @@
                         <ng-container matColumnDef="menu">
                             <th mat-header-cell *matHeaderCellDef> </th>
                             <td mat-cell *matCellDef="let element">
-                                <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-                                        <mat-icon>more_horiz</mat-icon>
-                                      </button>
-                                <mat-menu #menu="matMenu">
-                                    <button  mat-menu-item class="text-center">
-                                        <a (click)="editUser(element)">Editar informacion</a>
-                                    </button>
-                                    <button (click)="BlockedUser(element)" mat-menu-item class="text-center">
-                                          <span>Bloquear</span>
-                                        </button>
-                                    <button mat-menu-item class="text-center">
-                                          <span>Suspender cuenta</span>
-                                        </button>
-                                </mat-menu>
+                                <button (click)="editUser(element)" mat-icon-button aria-label="Example icon-button with a menu">
+                                        <mat-icon>edit</mat-icon>
+                                </button>
                             </td>
                         </ng-container>
                         <!-- TIPO Column -->
@@ -75,9 +64,9 @@
                             <td class="mat-cell" colspan="4">Usuario no encontrado "{{input.value}}"</td>
                         </tr>
                     </table>
-                    <mat-paginator #paginator [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
+
                 </mat-tab>
-                <mat-tab label="Bloqueados">
+                <mat-tab *ngIf="true" label="Bloqueados">
                     <table mat-table [dataSource]="dataUsersBlocked" class="mat-elevation-z8">
                         <!-- Checkbox Column -->
                         <ng-container matColumnDef="select">
@@ -149,9 +138,8 @@
                             <td class="mat-cell" colspan="4">Usuario no encontrado "{{input.value}}"</td>
                         </tr>
                     </table>
-                    <mat-paginator #pagingUsersBlocked [pageSizeOptions]="[5,10,15]" showFirstLastButtons></mat-paginator>
                 </mat-tab>
-                <mat-tab label="Cuentas suspendidas">
+                <mat-tab *ngIf="false" label="Cuentas suspendidas">
                     <table mat-table [dataSource]="dataUsersSuspending" class="mat-elevation-z8">
                         <!-- Checkbox Column -->
                         <ng-container matColumnDef="select">
@@ -228,9 +216,8 @@
             </mat-tab-group>
         </div>
         <div class="col-2">
-            <mat-form-field  appearance="outline" class="field-input-user">
+            <mat-form-field (click)="showSearchsItems($event)"  appearance="outline" class="field-input-user">
                 <input autocomplete="off" matInput (keyup)="applyFilter($event)"
-                       (click)="showSearchsItems($event)"
                        placeholder="Buscar usuarios" class="field-input-user" [(ngModel)]="search"
                        #input>
                 <mat-icon matPrefix style="color: #666666;" class="input">search</mat-icon>

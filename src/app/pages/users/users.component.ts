@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SelectionModel} from '@angular/cdk/collections'
+import {SelectionModel} from '@angular/cdk/collections';
 import { MatTableDataSource } from '@angular/material/table';
 import { GlobalsService } from 'src/app/services/Globals/globals.service';
 import { ApiBaseService } from 'src/app/services/api-base/api-base-service.service';
@@ -7,14 +7,14 @@ import { Router, UrlTree } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiRegisterService } from 'src/app/services/api-register/api-register-service.service';
 import {MatPaginator} from '@angular/material/paginator';
-import {defaultTargetBuilders} from "@angular/cdk/schematics";
-import {User} from "../../models/User";
+import {defaultTargetBuilders} from '@angular/cdk/schematics';
+import {User} from '../../models/User';
 export interface PeriodicElement {
-  user_id: string,
-  photo: string,
-  first_name: string,
-  last_name: string,
-  wallet: string,
+  user_id: string;
+  photo: string;
+  first_name: string;
+  last_name: string;
+  wallet: string;
   tipo: string;
 }
 
@@ -26,16 +26,17 @@ export interface PeriodicElement {
 })
 export class UsersComponent implements OnInit {
   servicios: User[] = [];
+  usersBlocked: User[] = [];
   total: number;
   size: number;
   page = 0;
-  filter = "";
-  search = "";
-  items:any[]=[{}];
+  filter = '';
+  search = '';
+  items: any[] = [{}];
 
-   displayedColumns: string[] = [ 'select', 'user_id', 'photo', 'first_name', 'last_name', 'wallet','menu'];
+   displayedColumns: string[] = [ 'select', 'user_id', 'photo', 'first_name', 'last_name', 'wallet', 'menu'];
    dataSource = new MatTableDataSource(this.servicios);
-   dataUsersBlocked = new MatTableDataSource(this.servicios);
+   dataUsersBlocked = new MatTableDataSource(this.usersBlocked);
    dataUsersSuspending = new MatTableDataSource(this.servicios);
    selection = new SelectionModel(true, []);
 
@@ -45,17 +46,13 @@ export class UsersComponent implements OnInit {
   ngOnInit(
   ): void {
     this.listar();
-    this.dataSource.paginator = this.paginator;
+    this.listUsersBlockeds();
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-
-  @ViewChild('pagingUsersBlocked') set pagingUsersBlocked(content: MatPaginator) {
-    this.setDataSourcePaginator(this.dataUsersBlocked, content);
-  }
   @ViewChild('pagingUsersSuspending') set pagingUsersSuspending(content: MatPaginator) {
     this.setDataSourcePaginator(this.dataUsersSuspending, content);
   }
+  // tslint:disable-next-line:typedef
   setDataSourcePaginator(
     dataSource: MatTableDataSource<any>,
     paginatorContent: MatPaginator
@@ -72,10 +69,19 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['/Pages/edit']);
   }
 
-  selectItem(item):void{
+  selectItem(item): void{
     this.filter = item.username;
     this.globals.showFilter = false;
     this.listar();
+  }
+
+  // tslint:disable-next-line:typedef
+  onScrollUsers(){
+    //alert("se ejecuto la consulta");
+  }
+
+  onScrollUsersBlocked(){
+
   }
   showSearchsItems(event):void{
     this.globals.showFilter = true;
@@ -127,6 +133,10 @@ export class UsersComponent implements OnInit {
     let args = [{name:"page",value:(this.page + 1)},{name:"q",value:this.filter}];
     this.apiRegister.GetUsersFilter(this, args, this.UsuariosObtenidos, this.errorHanndler);
   }
+  listUsersBlockeds(){
+    let args = [{name:"page",value:(this.page + 1)},{name:"q",value:""}];
+    this.apiRegister.GuetUsersBlockeds(this, args, this.successUsersBlockeds, this.errorHanndler);
+  }
 
   filterList(list,x,y){
     let newList = [];
@@ -138,15 +148,18 @@ export class UsersComponent implements OnInit {
     return newList;
   }
 
+  successUsersBlockeds(_this, data){
+    _this.usersBlockeds = data;
+    _this.dataUsersBlocked = new MatTableDataSource(_this.usersBlockeds);
+
+  }
+
   UsuariosObtenidos(_this, data) {
     _this.servicios = _this.filterList(data,"is_active",true);;
     _this.dataSource = new MatTableDataSource(_this.servicios);
     let usersBlocked = _this.filterList(data,"is_active",false);
     _this.dataUsersSuspending = new MatTableDataSource(usersBlocked);
-    _this.dataUsersBlocked = new MatTableDataSource(usersBlocked);
-    _this.dataUsersBlocked.paginator = _this.pagingUsersBlocked;
     _this.dataUsersSuspending.paginator = _this.pagingUsersSuspending;
-    _this.dataSource.paginator = _this.paginator;
     _this.total = data.length;
     _this.size = data.length;
   }

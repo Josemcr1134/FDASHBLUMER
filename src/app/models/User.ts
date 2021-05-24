@@ -15,4 +15,5 @@ export class User
   birthday: string;
   is_active: Boolean;
   gender: number ;
+  email:string;
 }
