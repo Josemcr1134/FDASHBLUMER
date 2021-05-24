@@ -36,12 +36,20 @@
                 <input type="text" matInput placeholder="example@email.com" [(ngModel)]="email" required>
             </mat-form-field>
         </div>
-        <div class="dialog-typeAccount">
+        <div class="dialog-typeAccount mb-2">
             <p>TIPO DE CUENTA </p>
-            <mat-form-field class="user-account" appearance="outline">
-                <mat-label>EMPRENDIMIENTO</mat-label>
-                <input type="text" matInput placeholder="TIPO DE CUENTA">
-            </mat-form-field>
+            <mat-checkbox>
+                Usuarios
+            </mat-checkbox> <br>
+            <mat-checkbox>
+                Influencer
+            </mat-checkbox> <br>
+            <mat-checkbox>
+                Emprendimiento
+            </mat-checkbox> <br>
+            <mat-checkbox>
+                Empresa/Anunciante
+            </mat-checkbox>
         </div>
         <div class="dialog-slideToggle">
             <mat-slide-toggle>Destacar como perfil sugerido</mat-slide-toggle>

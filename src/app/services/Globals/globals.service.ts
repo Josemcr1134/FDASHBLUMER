@@ -51,6 +51,7 @@ public distancia = 0;
   public last_Name: string;
   public showFilter = false;
   public userToEdit: User = new User();
+  public user_selected_id
   setToken(token: string): void {
     localStorage.setItem('token', token);
     localStorage.setItem('name', this.name);

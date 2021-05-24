@@ -14,6 +14,7 @@ export class UserInformationComponent implements OnInit {
   public last_name: string =  this.global.last_Name
   public email: string = this.global.email
   public user_id: string = this.global.id
+  public photo: string = this.global.photo
   durationInSeconds = 5;
   edtitPhoto: File ;
   srcPhoto;
@@ -39,11 +40,12 @@ export class UserInformationComponent implements OnInit {
       first_name: this.first_name,
       last_name:  this.last_name,
       email: this.email,
-      user_id : this.user_id
+      user_id : this.user_id,
+      photo: this.photo
 /*       app_token: this.messagingService.token
  */    };
-    this.apiRegister.ChangeAdminInfo(this, data, this.ChangeSucces, this.errorHandler);
-
+    this.apiRegister.EditUser(this, data, this.ChangeSucces, this.errorHandler);
+  
   }
   openSnackBar(message: string, action: string, ) {
     this._snackBar.open(message, action,);
@@ -74,4 +76,5 @@ export class UserInformationComponent implements OnInit {
     //console.log("error " + data.error.errors[0]);
     _this.openSnackBar("Error", data.error.errors[0]);
   }
+  
 }
