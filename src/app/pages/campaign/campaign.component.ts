@@ -29,7 +29,7 @@ export class CampaignComponent implements OnInit {
   search = "";
   items:any[]=[{}];
   constructor(public globals: GlobalsService,
-    public apiRegister: ApiRegisterService, router: Router, matDialog: MatDialog) { }
+    public apiRegister: ApiRegisterService, private router: Router, matDialog: MatDialog) { }
   ngOnInit(): void {
     this.listar();
   }
@@ -97,4 +97,48 @@ export class CampaignComponent implements OnInit {
   errorHanndler(_this, data) {
     console.log("error " + data.error.message);
   }
+
+
+
+
+  AprobarCampana( campaign) {
+    //this.confirm.set_phone(this.phone);
+    let path = this.apiRegister.urls.approveCampaignUrl;
+    console.log(path);
+    let data = {
+      ad_id: campaign.ad_id,
+      status: 2,
+      cancel_reason: null
+    };
+    this.apiRegister.ChangeStatusCampaign(this , data, this.Aprobar, this.errorHanndler);
+  }
+
+  Aprobar(_this, data) {
+
+    this.router.navigate(['/Pages/campaign']);
+  }
+
+
+
+  DesaprobarCampana( campaign) {
+    //this.confirm.set_phone(this.phone);
+    let path = this.apiRegister.urls.approveCampaignUrl;
+    console.log(path);
+    let data = {
+      ad_id: campaign.ad_id,
+      status: 5,
+      cancel_reason: 'Campaña rechazada por administrador'
+    };
+    this.apiRegister.ChangeStatusCampaign(this , data, this.desAprobar, this.errorHanndler);
+  }
+
+  desAprobar(_this, data) {
+
+    this.router.navigate(['/Pages/campaign']);
+  }
+
+
+
+
+
 }

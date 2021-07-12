@@ -33,6 +33,9 @@ export class UsersComponent implements OnInit {
   filter = '';
   search = '';
   items: any[] = [{}];
+  id : string;
+  status : string;
+  reason : 'rechazada por ardministrador';
 
    displayedColumns: string[] = [ 'select', 'user_id', 'photo', 'first_name', 'last_name', 'wallet', 'menu'];
    dataSource = new MatTableDataSource(this.servicios);

@@ -27,7 +27,9 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
       approveProductUrl: '/dash/api/v1/products/change_product_status',
       usersBlockeds: '/dash/api/v1/user/blocked_users',
       suggestedUserUrl: '/dash/api/v1/user/suggested',
-      editUser: '/dash/api/v1/user/edit_user'
+      editUser: '/dash/api/v1/user/edit_user',
+      approveCampaignUrl: '/dash/api/v1/ads/change_ad_status',
+
     }
 
     sendCodePhone = (_this, data , successHandler, errorHandler) =>{
@@ -86,6 +88,10 @@ import { ApiBaseService } from '../api-base/api-base-service.service';
     }
     ChangeStatusProduct = (_this, data, SuggestedSucces, errorHandler ) => {
       this.apiBase.put(_this, this.urls.approveProductUrl, data , SuggestedSucces, errorHandler)
+    }
+
+    ChangeStatusCampaign = (_this, data, SuggestedSucces, errorHandler ) => {
+    this.apiBase.put(_this, this.urls.approveCampaignUrl, data , SuggestedSucces, errorHandler)
     }
     //https://blumer.app/dash/api/v1/user/blocked_users?page=1&q=cuetoadolfo
     GuetUsersBlockeds = ( _this, args, successHandler, errorHandler) => {

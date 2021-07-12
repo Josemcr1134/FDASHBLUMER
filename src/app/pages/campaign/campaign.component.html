@@ -52,15 +52,13 @@
                                         <mat-icon>more_horiz</mat-icon>
                                       </button>
                                 <mat-menu #menu="matMenu">
-                                    <button mat-menu-item class="text-center">
-                                          <span>Editar </span>
-                                        </button>
-                                    <button mat-menu-item class="text-center">
-                                          <span>Bloquear</span>
-                                        </button>
-                                    <button mat-menu-item class="text-center">
-                                          <span>Suspender campaña</span>
-                                        </button>
+                                    <button (click)="AprobarCampana(element)" mat-menu-item class="text-center">
+                                          <span>Aceptar </span>
+                                    </button>
+
+                                    <button (click)="DesaprobarCampana(element)" mat-menu-item class="text-center">
+                                          <span>Rechazar</span>
+                                    </button>
                                 </mat-menu>
                             </td>
                         </ng-container>
